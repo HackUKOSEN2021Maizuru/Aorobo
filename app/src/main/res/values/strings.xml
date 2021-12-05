@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">KoroboAndroidApp</string>
+    <string name="title_home">ホーム</string>
+    <string name="title_dashboard">チャット</string>
+    <string name="title_time">勉強時間</string>
+    <string name="Start">スタート</string>
+    <string name="_00_00">00:00</string>
+    <string name="reset">リセット</string>
+    <string name="button01">Button 01</string>
+    <string name="pop01">Pop 01</string>
+    <string name="button02">Button 02</string>
+    <string name="pop02">Pop 02</string>
+    <string name="zero">"00:00.0"</string>
+    <string name="menu_home">メイン</string>
+    <string name="menu_gallery">勉強</string>
+    <string name="menu_slideshow">カレンダー</string>
+    <string name="menu_talk">トーク</string>
+    <string name="action_settings">Settings</string>
+</resources>
