@@ -15,5 +15,7 @@
     <string name="menu_gallery">勉強</string>
     <string name="menu_slideshow">カレンダー</string>
     <string name="menu_talk">トーク</string>
+    <string name="menu_schedule">予定</string>
     <string name="action_settings">Settings</string>
+
 </resources>
