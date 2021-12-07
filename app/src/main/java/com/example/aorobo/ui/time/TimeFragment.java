@@ -26,6 +26,11 @@ import com.example.aorobo.db.AppDatabase;
 import com.example.aorobo.db.AppDatabaseSingleton;
 import com.example.aorobo.db.LogDao;
 import com.example.aorobo.db.Log;
+import com.example.aorobo.db.TimeDatabase;
+import com.example.aorobo.db.TimeDatabaseSingleton;
+import com.example.aorobo.db.time.TimeDB;
+import com.example.aorobo.db.time.TimeDBDao;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -63,7 +68,7 @@ public class TimeFragment extends Fragment {
     private long count, delay, period;
     private String zero;
     private WeakReference<Activity> weakActivity;
-    private AppDatabase db;
+    private TimeDatabase db;
 
     static TimeFragment newInstance(int count){
         // Fragemnt01 インスタンス生成
@@ -87,10 +92,10 @@ public class TimeFragment extends Fragment {
     }
 
 
-    public String getTime(long time){
-        long mm = count*100 / 1000 / 60;
-        long ss = count*100 / 1000 % 60;
-        long ms = (count*100 - ss * 1000 - mm * 1000 * 60)/100;
+    public String getTimeString(long time){
+        long mm = time*100 / 1000 / 60;
+        long ss = time*100 / 1000 % 60;
+        long ms = (time*100 - ss * 1000 - mm * 1000 * 60)/100;
 
         return String.format(Locale.US, "%1$02d:%2$02d.%3$01d", mm, ss, ms);
     }
@@ -99,7 +104,7 @@ public class TimeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        db = AppDatabaseSingleton.getInstance(null);
+        db = TimeDatabaseSingleton.getInstance(null);
         Bundle args = getArguments();
 
         delay = 0;
@@ -109,7 +114,7 @@ public class TimeFragment extends Fragment {
         timerText = getActivity().findViewById(R.id.TimeText);
         timerText.setText(zero);
         logText = getActivity().findViewById(R.id.LogText);
-        new DataStoreAsyncTask(db, getActivity(), logText,null).execute();
+        new DataStoreAsyncTask(db, getActivity(), logText,0).execute();
 
 
 
@@ -149,8 +154,11 @@ public class TimeFragment extends Fragment {
                 // timer がnullでない、起動しているときのみcancleする
                 if(null != timer){
 
-                    new DataStoreAsyncTask(db, getActivity(), logText,getTime(count)).execute();
-
+                    DataStoreAsyncTask ds =new DataStoreAsyncTask(db, getActivity(), logText,count);
+                    ds.execute();
+                    System.out.println("gettimes:");
+                    //long l=
+                    //logText.setText(getTimeString(ds.getTimes()));
                     // Cancel
                     timer.cancel();
                     timer = null;
@@ -187,7 +195,7 @@ public class TimeFragment extends Fragment {
                 public void run() {
                     count++;
                     // 桁数を合わせるために02d(2桁)を設定
-                    timerText.setText(getTime(count));
+                    timerText.setText(getTimeString(count));
 
 
                 }
@@ -196,31 +204,52 @@ public class TimeFragment extends Fragment {
     }
     private static class DataStoreAsyncTask extends AsyncTask<Void, Void, Integer> {
         private WeakReference<Activity> weakActivity;
-        private AppDatabase db;
+        private TimeDatabase db;
         private TextView textView;
         private StringBuilder sb;
-        String s;
+        //String s;
+        long s;
+        long times;
+        long i;
 
-
-        public DataStoreAsyncTask(AppDatabase db, Activity activity, TextView textView,String s) {
+        public DataStoreAsyncTask(TimeDatabase db, Activity activity, TextView textView,long s) {
             this.db = db;
             weakActivity = new WeakReference<>(activity);
             this.textView = textView;
             this.s=s;
+
+
         }
 
         @Override
         protected Integer doInBackground(Void... params) {
-            LogDao logDao = db.LogDao();
-
-            if(s!=null){
-                logDao.insert(new Log(s));
+            TimeDBDao timeDBDao = db.TimeDBDao();
+            //timeDBDao.nukeTable();
+            if(s>0){
+                timeDBDao.insert(new TimeDB(s));
             }
+            System.out.println("今回の勉強時間");
+            System.out.println(s);
             sb = new StringBuilder();
-            List<Log> atList = logDao.getAll();
-            for (Log at: atList) {
-                sb.append(at.getLog()).append("\n");
-            }
+
+
+                times=0;
+                i=0;
+
+                List<TimeDB> atList = timeDBDao.getAll();
+                for (TimeDB at: atList) {
+                    System.out.println(i);
+
+                    times+=at.gettime();
+                    System.out.println(at.getId());
+                    System.out.println(at.gettime());
+
+
+                    i++;
+                }
+                System.out.println(i);
+
+
 
 
             return 0;
@@ -232,9 +261,20 @@ public class TimeFragment extends Fragment {
             if(activity == null) {
                 return;
             }
+            long mm = times*100 / 1000 / 60;
+            long ss = times*100 / 1000 % 60;
+            long ms = (times*100 - ss * 1000 - mm * 1000 * 60)/100;
 
-            textView.setText(sb.toString());
+            ;
 
+
+            textView.setText(String.format(Locale.US, "%1$02d:%2$02d.%3$01d", mm, ss, ms));
+
+        }
+        public long getTimes(){
+            System.out.println("ans:");
+            System.out.println(times);
+            return times;
         }
     }
 
