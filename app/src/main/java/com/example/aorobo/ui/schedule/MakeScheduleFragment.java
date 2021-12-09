@@ -1,19 +1,14 @@
 package com.example.aorobo.ui.schedule;
 
-<<<<<<< HEAD
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
-=======
-import android.os.Bundle;
->>>>>>> 4b2d20ed2a2f26af22a763cc007a31e000f27f06
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-<<<<<<< HEAD
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -48,27 +43,12 @@ public class MakeScheduleFragment extends Fragment implements DatePickerDialog.O
     Date startDay=null,endDay=null;
     String scheduleName=null;
     private ScheduleDataBase db;
-=======
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import com.example.aorobo.R;
-
-public class MakeScheduleFragment extends Fragment{
-
->>>>>>> 4b2d20ed2a2f26af22a763cc007a31e000f27f06
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        System.out.println("createview");
-<<<<<<< HEAD
-        isDateSetEnd=false;
-=======
->>>>>>> 4b2d20ed2a2f26af22a763cc007a31e000f27f06
 
 
         return inflater.inflate(R.layout.fragment_make_schedule,
@@ -80,7 +60,6 @@ public class MakeScheduleFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         System.out.println("viewcreated");
         Bundle args = getArguments();
-<<<<<<< HEAD
         Button startbutton=getActivity().findViewById(R.id.button_schedule_start);
         Button endbutton=getActivity().findViewById(R.id.button_schedule_end);
         startText=getActivity().findViewById(R.id.button_schedule_start);
@@ -135,13 +114,11 @@ public class MakeScheduleFragment extends Fragment{
 
         });
 
-=======
 
 
 
 
         Button button02 = view.findViewById(R.id.savebutton);
->>>>>>> 4b2d20ed2a2f26af22a763cc007a31e000f27f06
         /*
         button02.setOnClickListener( v -> {
             FragmentManager fragmentManager = getFragmentManager();
@@ -169,7 +146,6 @@ public class MakeScheduleFragment extends Fragment{
 
          */
     }
-<<<<<<< HEAD
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
@@ -227,8 +203,5 @@ public class MakeScheduleFragment extends Fragment{
         }
 
     }
-
-=======
->>>>>>> 4b2d20ed2a2f26af22a763cc007a31e000f27f06
 
 }
