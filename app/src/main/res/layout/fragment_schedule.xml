@@ -17,33 +17,37 @@
 
             <Button
                 android:id="@+id/add_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
-                android:layout_height="82dp"
-                android:background="#F6F6F6"
+                android:layout_height="80dp"
                 android:backgroundTint="#FFFFFF"
                 android:backgroundTintMode="add"
-                android:color="@color/white"
                 android:text="@string/button_add_schedule"
                 android:textSize="24sp"
-                app:icon="@android:drawable/ic_menu_add"
-                app:strokeColor="#FFFFFF" />
+                app:icon="@android:drawable/ic_menu_add" />
 
-            <View
-                android:id="@+id/view3"
+            <ImageView
+                android:id="@+id/imageView2"
                 android:layout_width="match_parent"
-                android:layout_height="2dp" />
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/border1" />
 
             <Button
                 android:id="@+id/dif_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
-                android:layout_height="82dp"
-                android:background="#F6F6F6"
+                android:layout_height="80dp"
+                android:backgroundTint="#FFFFFF"
                 android:backgroundTintMode="add"
-                android:color="@color/white"
                 android:text="@string/button_dif_schedule"
                 android:textSize="24sp"
-                app:icon="@android:drawable/ic_menu_delete"
-                app:strokeColor="#FFFFFF" />
+                app:icon="@android:drawable/ic_menu_delete" />
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/border1" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
