@@ -1,9 +1,12 @@
 package com.example.aorobo;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.aorobo.db.ScheduleDataBase;
+import com.example.aorobo.db.ScheduleDataBaseSingleton;
 import com.example.aorobo.db.TimeDatabase;
 import com.example.aorobo.db.TimeDatabaseSingleton;
 import com.google.android.material.snackbar.Snackbar;
@@ -26,9 +29,11 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.id.ccccccc);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -37,17 +42,20 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+        //setContentView(R.id.drawer_layout);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery,R.id.nav_schedule, R.id.nav_slideshow, R.id.nav_talk)
+                R.id.nav_home, R.id.nav_gallery,R.id.nav_schedule, R.id.nav_slideshow, R.id.nav_talk,R.id.fragment_container)
                 .setOpenableLayout(drawer)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         AppDatabase db = AppDatabaseSingleton.getInstance(getApplicationContext());
         TimeDatabase tdb = TimeDatabaseSingleton.getInstance(getApplicationContext());
+        ScheduleDataBase sdb= ScheduleDataBaseSingleton.getInstance(getApplicationContext());
     }
 
     @Override

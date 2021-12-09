@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+<<<<<<< HEAD
+=======
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/drawable/border.xml" value="0.10185185185185185" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/drawable/i_ball_katlay.xml" value="0.1" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/drawable/ic_baseline_fiber_manual_record_24.xml" value="0.1" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/drawable/ic_baseline_mood_24.xml" value="0.1" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/drawable/ic_menu_camera.xml" value="0.1" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.1" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/app_bar_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/fragment_gallery.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/fragment_make_schedule.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/fragment_schedule.xml" value="0.264" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/fragment_schedule_setting.xml" value="0.264" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/fragment_slideshow.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/fragment_talk.xml" value="0.3736979166666667" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/fragment_time.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/nav_header_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/roe.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/layout/row.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/nakaj/Desktop/Aorobo/app/src/main/res/menu/main.xml" value="0.25416666666666665" />
+>>>>>>> 1916cd00b28665e163b58247dd3c0f7c9a8fdee1
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/drawable/i_chat.xml" value="0.1" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/app_bar_main.xml" value="0.1" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/fragment_gallery.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/fragment_home.xml" value="0.20677083333333332" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/fragment_make_schedule.xml" value="0.18" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/fragment_schedule.xml" value="0.19270833333333334" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/fragment_schedule_setting.xml" value="0.19322916666666667" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/fragment_slideshow.xml" value="0.1" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/fragment_time.xml" value="0.1" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/layout/nav_header_main.xml" value="0.1" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/menu/activity_main_drawer.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/menu/main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/nkout/AndroidStudioProjects/Aorobo/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.11574074074074074" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
