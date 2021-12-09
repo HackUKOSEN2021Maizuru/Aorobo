@@ -47,16 +47,16 @@
 
             <View
                 android:id="@+id/view"
-                android:layout_width="87dp"
+                android:layout_width="80dp"
                 android:layout_height="35dp"
                 android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/schedule_contents"
                 android:layout_width="167dp"
-                android:layout_height="wrap_content"
+                android:layout_height="33dp"
                 android:text="@string/schedule_default_period"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/schedule_limit"

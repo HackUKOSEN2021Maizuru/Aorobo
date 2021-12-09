@@ -37,4 +37,9 @@
         android:name="com.example.aorobo.ui.schedule.MakeScheduleFragment"
         android:label="@string/menu_make_schedule"
         tools:layout="@layout/fragment_schedule" />
+    <fragment
+        android:id="@+id/make_schedule"
+        android:name="com.example.aorobo.ui.schedule.ScheduleFragment"
+        android:label="@string/menu_schedule"
+        tools:layout="@layout/fragment_make_schedule" />
 </navigation>
