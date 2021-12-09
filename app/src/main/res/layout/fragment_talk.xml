@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="2dp">
+
+    <Button
+        android:id="@+id/savebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginTop="500dp"
+        android:text="@string/schedule_save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="85dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/i_ball_katlay" />
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="307dp"
+                    android:layout_height="match_parent"
+                    app:boxBackgroundColor="#00FFFFFF"
+                    app:boxBackgroundMode="filled"
+                    app:boxStrokeColor="#FFFFFF"
+                    app:endIconTint="#000000"
+                    app:hintTextColor="#000000"
+                    app:startIconTint="#000000">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_schedule_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="予定タイトル"
+                        android:inputType="text"
+                        android:maxLength="11"
+                        android:textSize="24sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="52dp"
+                        android:layout_height="66dp"
+                        app:srcCompat="@drawable/i_ball_katlay" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/schedule_default_period"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/button_schedule_start"
+                                android:layout_width="120dp"
+                                android:layout_height="50dp"
+                                android:backgroundTint="#80FAC9C9"
+                                android:paddingLeft="2dp"
+                                android:paddingRight="2dp"
+                                android:text="@string/schedule_start"
+                                android:textSize="12dp" />
+
+                            <View
+                                android:id="@+id/view6"
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content" />
+
+                            <TextView
+                                android:id="@+id/s_e_wave"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="~"
+                                android:textSize="24sp" />
+
+                            <View
+                                android:id="@+id/view7"
+                                android:layout_width="20dp"
+                                android:layout_height="wrap_content" />
+
+                            <Button
+                                android:id="@+id/button_schedule_end"
+                                android:layout_width="120dp"
+                                android:layout_height="50dp"
+                                android:backgroundTint="#80FAC9C9"
+                                android:paddingLeft="2dp"
+                                android:paddingRight="2dp"
+                                android:text="@string/schedule_end"
+                                android:textSize="12dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
