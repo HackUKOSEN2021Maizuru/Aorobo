@@ -44,6 +44,7 @@
                 android:textSize="24sp"
                 app:icon="@android:drawable/ic_menu_delete"
                 app:strokeColor="#FFFFFF" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
