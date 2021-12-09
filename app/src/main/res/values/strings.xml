@@ -16,6 +16,7 @@
     <string name="menu_slideshow">カレンダー</string>
     <string name="menu_talk">トーク</string>
     <string name="menu_schedule">予定</string>
+    <string name="menu_make_schedule">予定追加</string>
     <string name="action_settings">Settings</string>
     <string name="pick_date">Pick Date</string>
     <string name="button_add_schedule">予定を追加</string>
