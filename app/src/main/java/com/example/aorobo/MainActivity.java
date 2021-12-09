@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.aorobo.db.TimeDatabase;
+import com.example.aorobo.db.TimeDatabaseSingleton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -45,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         AppDatabase db = AppDatabaseSingleton.getInstance(getApplicationContext());
+        TimeDatabase tdb = TimeDatabaseSingleton.getInstance(getApplicationContext());
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
