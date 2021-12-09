@@ -23,7 +23,8 @@
     <string name="schedule_default_limit">残りhoge日</string>
     <string name="schedule_default_period">予定の期間</string>
     <string name="schedule_save">保存</string>
-
+    <string name="schedule_start">Start</string>
+    <string name="schedule_end">End</string>
 
 
 </resources>
