@@ -1,10 +1,8 @@
-package com.example.aorobo.ui.schedule;
-
+package com.example.aorobo.ui.talk;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,16 +12,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.aorobo.R;
-import com.example.aorobo.databinding.FragmentScheduleBinding;
-import com.example.aorobo.ui.slideshow.SlideshowViewModel;
+import com.example.aorobo.databinding.FragmentTalkBinding;
 
-public class ScheduleFragment extends Fragment{
-    private FragmentScheduleBinding binding;
+
+
+public class TalkFragment extends Fragment{
+
+    private FragmentTalkBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentScheduleBinding.inflate(inflater, container, false);
+        binding = FragmentTalkBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
 
