@@ -32,6 +32,14 @@
             android:id="@+id/action_first_to_second"
             app:destination="@id/nav_make_schedule" />
     </fragment>
+<<<<<<< HEAD
+=======
+    <fragment
+        android:id="@+id/nav_make_schedule"
+        android:name="com.example.aorobo.ui.schedule.MakeScheduleFragment"
+        android:label="@string/menu_make_schedule"
+        tools:layout="@layout/fragment_schedule" />
+>>>>>>> 4b2d20ed2a2f26af22a763cc007a31e000f27f06
     <fragment
         android:id="@+id/nav_make_schedule"
         android:name="com.example.aorobo.ui.schedule.MakeScheduleFragment"
