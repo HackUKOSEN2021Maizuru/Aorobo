@@ -23,14 +23,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="300dp"
                 android:orientation="horizontal">
 
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="80dp"
-                    android:layout_marginRight="80dp">
+                    android:layout_marginRight="80dp"
+                    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck">
 
                     <LinearLayout
                         android:layout_width="match_parent"
