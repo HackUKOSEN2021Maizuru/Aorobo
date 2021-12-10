@@ -3,6 +3,7 @@
     <string name="title_home">ホーム</string>
     <string name="title_dashboard">チャット</string>
     <string name="title_time">勉強時間</string>
+    <string name="study_time_today">本日の勉強時間</string>
     <string name="Start">スタート</string>
     <string name="_00_00">00:00</string>
     <string name="reset">リセット</string>
@@ -17,6 +18,7 @@
     <string name="menu_talk">トーク</string>
     <string name="menu_schedule">予定</string>
     <string name="menu_make_schedule">予定追加</string>
+    <string name="menu_bluetooth_status">接続状況</string>
     <string name="action_settings">Settings</string>
     <string name="pick_date">Pick Date</string>
     <string name="button_add_schedule">予定を追加</string>
