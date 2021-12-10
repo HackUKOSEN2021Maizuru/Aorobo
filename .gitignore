@@ -14,5 +14,4 @@ idea/misc.xml
 .externalNativeBuild
 .cxx
 local.properties
-
-
+/.idea/misc.xml
