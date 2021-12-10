@@ -16,6 +16,7 @@ import android.app.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.lang.ref.WeakReference;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,6 +27,8 @@ import com.example.aorobo.db.AppDatabase;
 import com.example.aorobo.db.AppDatabaseSingleton;
 import com.example.aorobo.db.LogDao;
 import com.example.aorobo.db.Log;
+import com.example.aorobo.db.StudyTimeDataBase;
+import com.example.aorobo.db.StudyTimeDataBaseSingleton;
 import com.example.aorobo.db.TimeDatabase;
 import com.example.aorobo.db.TimeDatabaseSingleton;
 import com.example.aorobo.db.time.TimeDB;
@@ -68,7 +71,7 @@ public class TimeFragment extends Fragment {
     private long count, delay, period;
     private String zero;
     private WeakReference<Activity> weakActivity;
-    private TimeDatabase db;
+    private StudyTimeDataBase db;
 
     static TimeFragment newInstance(int count){
         // Fragemnt01 インスタンス生成
@@ -104,7 +107,7 @@ public class TimeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        db = TimeDatabaseSingleton.getInstance(null);
+        db = StudyTimeDataBaseSingleton.getInstance(null);
         Bundle args = getArguments();
 
         delay = 0;
@@ -204,7 +207,7 @@ public class TimeFragment extends Fragment {
     }
     private static class DataStoreAsyncTask extends AsyncTask<Void, Void, Integer> {
         private WeakReference<Activity> weakActivity;
-        private TimeDatabase db;
+        private StudyTimeDataBase db;
         private TextView textView;
         private StringBuilder sb;
         //String s;
@@ -212,7 +215,7 @@ public class TimeFragment extends Fragment {
         long times;
         long i;
 
-        public DataStoreAsyncTask(TimeDatabase db, Activity activity, TextView textView,long s) {
+        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity, TextView textView,long s) {
             this.db = db;
             weakActivity = new WeakReference<>(activity);
             this.textView = textView;
@@ -225,8 +228,14 @@ public class TimeFragment extends Fragment {
         protected Integer doInBackground(Void... params) {
             TimeDBDao timeDBDao = db.TimeDBDao();
             //timeDBDao.nukeTable();
+            Date date =new Date();
+            System.out.println("date");
+            System.out.println(date);
+            date = new Date(date.getYear(),date.getMonth(),date.getDay());
+            System.out.println(date);
             if(s>0){
-                timeDBDao.insert(new TimeDB(s));
+
+                timeDBDao.insert(new TimeDB(s,date));
             }
             System.out.println("今回の勉強時間");
             System.out.println(s);
@@ -235,8 +244,9 @@ public class TimeFragment extends Fragment {
 
                 times=0;
                 i=0;
-
-                List<TimeDB> atList = timeDBDao.getAll();
+            System.out.println("get");
+            List<TimeDB> atList = timeDBDao.getAll();
+            System.out.println("got");
                 for (TimeDB at: atList) {
                     System.out.println(i);
 
@@ -277,6 +287,7 @@ public class TimeFragment extends Fragment {
             return times;
         }
     }
+
 
 
 }

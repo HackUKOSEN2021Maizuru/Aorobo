@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentHomeBinding;
 
+import java.util.Date;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -43,5 +45,10 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        Date date =new Date();
+        System.out.println(date);
+        date = new Date(date.getYear(),date.getMonth(),date.getDay());
+        System.out.println(date);
+
     }
 }

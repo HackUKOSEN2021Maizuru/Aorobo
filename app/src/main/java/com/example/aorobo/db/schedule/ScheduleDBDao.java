@@ -28,5 +28,5 @@ public interface ScheduleDBDao {
     void delete(ScheduleDB schedule);
 
     @Query("DELETE FROM scheduledb")
-    public void nukeTable();
+    public void deleteAll();
 }

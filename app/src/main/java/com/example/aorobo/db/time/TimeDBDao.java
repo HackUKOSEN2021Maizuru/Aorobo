@@ -28,7 +28,7 @@ public interface TimeDBDao {
     void delete(TimeDB time);
 
     @Query("DELETE FROM timedb")
-    public void nukeTable();
+    public void deleteAll();
 
 
 }
