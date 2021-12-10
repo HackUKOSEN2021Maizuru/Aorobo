@@ -7,6 +7,8 @@ import android.view.Menu;
 
 import com.example.aorobo.db.ScheduleDataBase;
 import com.example.aorobo.db.ScheduleDataBaseSingleton;
+import com.example.aorobo.db.StudyTimeDataBase;
+import com.example.aorobo.db.StudyTimeDataBaseSingleton;
 import com.example.aorobo.db.TimeDatabase;
 import com.example.aorobo.db.TimeDatabaseSingleton;
 import com.google.android.material.snackbar.Snackbar;
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         AppDatabase db = AppDatabaseSingleton.getInstance(getApplicationContext());
-        TimeDatabase tdb = TimeDatabaseSingleton.getInstance(getApplicationContext());
+        StudyTimeDataBase tdb = StudyTimeDataBaseSingleton.getInstance(getApplicationContext());
         ScheduleDataBase sdb= ScheduleDataBaseSingleton.getInstance(getApplicationContext());
     }
 
