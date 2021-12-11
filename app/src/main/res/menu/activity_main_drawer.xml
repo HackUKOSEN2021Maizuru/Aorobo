@@ -25,5 +25,9 @@
             android:id="@+id/nav_talk"
             android:icon="@drawable/i_chat"
             android:title="@string/menu_talk" />
+        <item
+            android:id="@+id/nav_bluetooth"
+            android:icon="@drawable/colobo_studygraph"
+            android:title="@string/menu_bluetooth" />
     </group>
 </menu>
