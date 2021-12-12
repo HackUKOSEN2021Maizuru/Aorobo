@@ -47,7 +47,7 @@ public class ScheduleFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listView=getActivity().findViewById(R.id.listview1);
+        listView=getActivity().findViewById(R.id.shedule_list);
         items.add("Item 1");
         items.add("Item 2");
         items.add("Item 3");
