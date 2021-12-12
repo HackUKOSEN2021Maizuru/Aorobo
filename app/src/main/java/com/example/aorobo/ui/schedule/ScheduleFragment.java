@@ -1,5 +1,7 @@
 package com.example.aorobo.ui.schedule;
 
+import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +23,14 @@ import androidx.navigation.Navigation;
 
 import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentScheduleBinding;
+import com.example.aorobo.db.ScheduleDataBase;
+import com.example.aorobo.db.ScheduleDataBaseSingleton;
+import com.example.aorobo.db.schedule.ScheduleDB;
+import com.example.aorobo.db.schedule.ScheduleDBDao;
 import com.example.aorobo.ui.slideshow.SlideshowViewModel;
 
+import java.lang.ref.WeakReference;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +39,7 @@ public class ScheduleFragment extends Fragment{
     ListView listView;
     static List<String> items = new ArrayList<String>();
     static ArrayAdapter<String> adapter;
+    private ScheduleDataBase db;
 
 
 
@@ -55,6 +64,7 @@ public class ScheduleFragment extends Fragment{
         adapter = new ArrayAdapter<String>(view.getContext(), R.layout.row, R.id.schedule_name, items);
 
         listView.setAdapter(adapter);
+        db = ScheduleDataBaseSingleton.getInstance(null);
 
 
 
@@ -74,5 +84,47 @@ public class ScheduleFragment extends Fragment{
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private static class DataStoreAsyncTask extends AsyncTask<Void, Void, Integer> {
+        private WeakReference<Activity> weakActivity;
+        private ScheduleDataBase db;
+        Date startDay,endDay;
+        String scheduleName;
+
+        public DataStoreAsyncTask(ScheduleDataBase db, Activity activity, Date startDay,Date endDay,String scheduleName) {
+            this.db = db;
+            weakActivity = new WeakReference<>(activity);
+            this.startDay=startDay;
+            this.endDay=endDay;
+            this.scheduleName=scheduleName;
+
+
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            ScheduleDBDao scheduleDBDao = db.ScheduleDBDao();
+            //timeDBDao.nukeTable();
+
+            scheduleDBDao.insert(new ScheduleDB(scheduleName,startDay,endDay));
+
+
+
+
+
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer code) {
+            Activity activity = weakActivity.get();
+            if(activity == null) {
+                return;
+            }
+
+
+        }
+
     }
 }
