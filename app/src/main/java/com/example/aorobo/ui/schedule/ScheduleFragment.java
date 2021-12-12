@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,8 +23,14 @@ import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentScheduleBinding;
 import com.example.aorobo.ui.slideshow.SlideshowViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ScheduleFragment extends Fragment{
     private FragmentScheduleBinding binding;
+    ListView listView;
+    static List<String> items = new ArrayList<String>();
+    static ArrayAdapter<String> adapter;
 
 
 
@@ -39,6 +47,14 @@ public class ScheduleFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        listView=getActivity().findViewById(R.id.listview1);
+        items.add("Item 1");
+        items.add("Item 2");
+        items.add("Item 3");
+
+        adapter = new ArrayAdapter<String>(view.getContext(), R.layout.row, R.id.schedule_name, items);
+
+        listView.setAdapter(adapter);
 
 
 
