@@ -255,6 +255,7 @@ public class TimeFragment extends Fragment {
                     System.out.println(at.gettime());
 
 
+
                     i++;
                 }
                 System.out.println(i);
