@@ -154,6 +154,7 @@ public class MakeScheduleFragment extends Fragment implements DatePickerDialog.O
         if(isDateSetEnd==false){
             startText.setText( str );
             startDay=new Date(year-1900,monthOfYear,dayOfMonth);
+            ;
         }else{
             endText.setText( str );
             endDay=new Date(year-1900,monthOfYear,dayOfMonth);
