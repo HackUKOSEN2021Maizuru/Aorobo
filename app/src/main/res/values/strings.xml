@@ -35,6 +35,8 @@
     <string name="bluetooth_setting">bluetoothを\nオンにしてください</string>
     <string name="bluetooth_setting2">ころボを探しています</string>
     <string name="to_bluetooth_setting">bluetooth設定へ</string>
+    <string name="connected_corobo">接続中のころボ</string>
+    <string name="corobo_name">ころボ1号</string>
 
 
 </resources>
