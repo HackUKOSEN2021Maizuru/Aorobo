@@ -28,6 +28,7 @@
     <string name="schedule_default_title">予定タイトル</string>
     <string name="schedule_default_limit">残りhoge日</string>
     <string name="schedule_default_period">予定の期間</string>
+    <string name="schedule_default_period_num">2021.12.12~2021.12.18</string>
     <string name="schedule_save">保存</string>
     <string name="schedule_start">Start</string>
     <string name="schedule_end">End</string>
