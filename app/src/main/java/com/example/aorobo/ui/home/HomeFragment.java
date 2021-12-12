@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import com.example.aorobo.db.time.TimeDBDao;
 import com.example.aorobo.ui.time.TimeFragment;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +39,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private StudyTimeDataBase db;
     private TextView timeText;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -60,8 +64,11 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         db = StudyTimeDataBaseSingleton.getInstance(null);
-        System.out.println("fasdfafa");
+
         Bundle args = getArguments();
+
+
+
 
         timeText=getActivity().findViewById(R.id.study_time);
         new DataStoreAsyncTask(db, getActivity(), timeText,0).execute();
