@@ -2,6 +2,7 @@ package com.example.aorobo.ui.home;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,8 +22,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentHomeBinding;
+import com.example.aorobo.db.ScheduleDataBase;
+import com.example.aorobo.db.ScheduleDataBaseSingleton;
 import com.example.aorobo.db.StudyTimeDataBase;
 import com.example.aorobo.db.StudyTimeDataBaseSingleton;
+import com.example.aorobo.db.schedule.ScheduleDB;
+import com.example.aorobo.db.schedule.ScheduleDBDao;
 import com.example.aorobo.db.time.TimeDB;
 import com.example.aorobo.db.time.TimeDBDao;
 import com.example.aorobo.ui.time.TimeFragment;
@@ -29,8 +35,10 @@ import com.example.aorobo.ui.time.TimeFragment;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Timer;
 
 public class HomeFragment extends Fragment {
@@ -38,6 +46,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
     private StudyTimeDataBase db;
+    private ScheduleDataBase sdb;
     private TextView timeText;
 
 
@@ -66,12 +75,14 @@ public class HomeFragment extends Fragment {
         db = StudyTimeDataBaseSingleton.getInstance(null);
 
         Bundle args = getArguments();
+        ListView listView=getActivity().findViewById(R.id.home_schedule_list);
+        sdb = ScheduleDataBaseSingleton.getInstance(null);
 
 
 
 
         timeText=getActivity().findViewById(R.id.study_time);
-        new DataStoreAsyncTask(db, getActivity(), timeText,0).execute();
+        new DataStoreAsyncTask(db, getActivity(), timeText,0,sdb,listView,view.getContext()).execute();
 
 
 
@@ -101,6 +112,7 @@ public class HomeFragment extends Fragment {
     private static class DataStoreAsyncTask extends AsyncTask<Void, Void, Integer> {
         private WeakReference<Activity> weakActivity;
         private StudyTimeDataBase db;
+        private ScheduleDataBase sdb;
         private TextView textView;
         private StringBuilder sb;
         //String s;
@@ -108,11 +120,21 @@ public class HomeFragment extends Fragment {
         long times;
         long i;
 
-        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity, TextView textView,long s) {
+        ListView listView;
+        Context context;
+
+        static List<Map<String,String>> items = new ArrayList<Map<String, String>>();
+        static SimpleAdapter adapter;
+
+
+        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity, TextView textView,long s,ScheduleDataBase sdb,ListView listView,Context context) {
             this.db = db;
             weakActivity = new WeakReference<>(activity);
             this.textView = textView;
             this.s=s;
+            this.sdb=sdb;
+            this.listView=listView;
+            this.context=context;
 
 
         }
@@ -120,6 +142,7 @@ public class HomeFragment extends Fragment {
         @Override
         protected Integer doInBackground(Void... params) {
             TimeDBDao timeDBDao = db.TimeDBDao();
+            ScheduleDBDao scheduleDBDao = sdb.ScheduleDBDao();
             //timeDBDao.nukeTable();
             Date date =new Date();
             System.out.println("date");
@@ -150,7 +173,26 @@ public class HomeFragment extends Fragment {
 
                 i++;
             }
-            System.out.println(i);
+            List<ScheduleDB> sList = scheduleDBDao.getAll();
+            System.out.println("got");
+            items.clear();
+            date=new Date();
+
+            for (ScheduleDB at: sList) {
+                Map<String,String> data = new HashMap();
+                data.put("name",at.getName());
+                long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
+
+                data.put("time",String.format(Locale.US, "残り%1$02d日", t));
+                items.add(data);
+                System.out.println(at.getName());
+                System.out.println(at.getStart());
+                System.out.println(at.getEnd());
+                System.out.println(date);
+                System.out.println((at.getEnd().getTime()-date.getTime())/1000/60/60/24);
+
+            }
+
 
 
 
@@ -172,7 +214,15 @@ public class HomeFragment extends Fragment {
 
 
             textView.setText(String.format(Locale.US, "%1$02d:%2$02d.%3$01d", mm, ss, ms));
-
+            adapter = new SimpleAdapter(
+                    context,
+                    items,
+                    R.layout.row_home,
+                    new String [] {"name", "time"},
+                    new int[] {R.id.schedule_name_home, R.id.textView5}
+            );
+            listView.setAdapter(adapter);
+            System.out.println("c");
         }
         public long getTimes(){
             System.out.println("ans:");
@@ -180,4 +230,5 @@ public class HomeFragment extends Fragment {
             return times;
         }
     }
+
 }
