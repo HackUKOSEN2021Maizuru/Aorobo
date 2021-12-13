@@ -49,8 +49,8 @@
             android:background="@drawable/frame"
             android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/home_schedule_list"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_schedule_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </LinearLayout>

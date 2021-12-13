@@ -22,6 +22,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentScheduleBinding;
@@ -30,6 +33,7 @@ import com.example.aorobo.db.ScheduleDataBaseSingleton;
 import com.example.aorobo.db.schedule.ScheduleDB;
 import com.example.aorobo.db.schedule.ScheduleDBDao;
 import com.example.aorobo.db.time.TimeDB;
+import com.example.aorobo.ui.home.HomeAdapter;
 import com.example.aorobo.ui.slideshow.SlideshowViewModel;
 
 import java.lang.ref.WeakReference;
@@ -61,9 +65,17 @@ public class ScheduleFragment extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listView=getActivity().findViewById(R.id.shedule_list);
+        //listView=getActivity().findViewById(R.id.shedule_list);
         db = ScheduleDataBaseSingleton.getInstance(null);
-        new DataStoreAsyncTask(db, getActivity(),listView,view.getContext()).execute();
+
+        RecyclerView recyclerView = getActivity().findViewById(R.id.shedule_list);
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(view.getContext());
+
+        recyclerView.setLayoutManager(rLayoutManager);
+        new DataStoreAsyncTask(db, getActivity(),recyclerView,view.getContext()).execute();
 
 
 
@@ -79,6 +91,8 @@ public class ScheduleFragment extends Fragment{
     }
 
 
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -92,14 +106,17 @@ public class ScheduleFragment extends Fragment{
         String scheduleName;
         ListView listView;
         Context context;
+        RecyclerView recyclerView;
+        ScheduleAdapter scheduleAdapter;
 
 
-        static List<Map<String,String>> items = new ArrayList<Map<String, String>>();
-        static SimpleAdapter adapter;
-        public DataStoreAsyncTask(ScheduleDataBase db, Activity activity, ListView listView,Context context) {
+        static List<String> iName = new ArrayList<String>();
+        static List<String> iDate = new ArrayList<String>();
+        //static SimpleAdapter adapter;
+        public DataStoreAsyncTask(ScheduleDataBase db, Activity activity, RecyclerView recyclerView, Context context) {
             this.db = db;
             weakActivity = new WeakReference<>(activity);
-            this.listView=listView;
+            this.recyclerView=recyclerView;
             this.context=context;
         }
 
@@ -110,16 +127,17 @@ public class ScheduleFragment extends Fragment{
 
             List<ScheduleDB> atList = scheduleDBDao.getAll();
             System.out.println("got");
-            items.clear();
+            iName.clear();
+            iDate.clear();
             Date date=new Date();
 
             for (ScheduleDB at: atList) {
-                Map<String,String> data = new HashMap();
-                data.put("name",at.getName());
+                //Map<String,String> data = new HashMap();
+                //data.put("name",at.getName());
                 long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
-
-                data.put("time",String.format(Locale.US, "残り%1$02d日", t));
-                items.add(data);
+                iName.add(at.getName());
+                iDate.add(String.format(Locale.US, "残り%1$02d日", t));
+                //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
                 System.out.println(at.getName());
                 System.out.println(at.getStart());
                 System.out.println(at.getEnd());
@@ -142,8 +160,12 @@ public class ScheduleFragment extends Fragment{
             }
             System.out.println("a");
 
-            System.out.println("b");
 
+            System.out.println("b");
+            scheduleAdapter = new ScheduleAdapter(iName,iDate);
+            recyclerView.setAdapter(scheduleAdapter);
+            listsSwipe();
+            /*
             adapter = new SimpleAdapter(
                     context,
                     items,
@@ -156,7 +178,35 @@ public class ScheduleFragment extends Fragment{
             listView.setAdapter(adapter);
             System.out.println("c");
 
+             */
 
+
+
+        }
+        public void listsSwipe() {
+            ItemTouchHelper.SimpleCallback mIth = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                    int position = viewHolder.getAdapterPosition();
+                    //((ViewAdapter)recyclerView.getAdapter()).removeItem(position);
+                    long id = scheduleAdapter.getItemId(position);
+                    iName.remove(position);
+                    iDate.remove(position);
+                    ScheduleDBDao scheduleDBDao = db.ScheduleDBDao();
+                    //scheduleDBDao.delete();
+
+                    scheduleAdapter.notifyDataSetChanged();
+
+                }
+
+            };
+            new ItemTouchHelper(mIth).attachToRecyclerView(recyclerView);
 
         }
 
