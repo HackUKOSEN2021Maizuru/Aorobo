@@ -36,7 +36,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="59dp"
+        android:layout_height="40dp"
         android:orientation="vertical"
         android:outlineProvider="none">
 
@@ -54,7 +54,7 @@
             <TextView
                 android:id="@+id/schedule_contents"
                 android:layout_width="167dp"
-                android:layout_height="33dp"
+                android:layout_height="wrap_content"
                 android:text="@string/schedule_default_period"
                 android:textSize="14sp" />
 
@@ -66,12 +66,6 @@
                 android:text="@string/schedule_default_limit"
                 android:textSize="24sp" />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/border1" />
 
     </LinearLayout>
 
