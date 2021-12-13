@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment {
 
         timeText=getActivity().findViewById(R.id.study_time);
         RecyclerView recyclerView = getActivity().findViewById(R.id.home_schedule_recycler_view);
-        recyclerView.setHasFixedSize(false);
+        recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(view.getContext());
