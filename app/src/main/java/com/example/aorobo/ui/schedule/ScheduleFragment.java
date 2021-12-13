@@ -151,6 +151,8 @@ public class ScheduleFragment extends Fragment{
                     new String [] {"name", "time"},
                     new int[] {R.id.schedule_name, R.id.schedule_limit}
             );
+
+            adapter.notifyDataSetChanged();
             listView.setAdapter(adapter);
             System.out.println("c");
 
