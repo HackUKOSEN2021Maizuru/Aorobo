@@ -19,6 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentHomeBinding;
@@ -76,14 +78,23 @@ public class HomeFragment extends Fragment {
         db = StudyTimeDataBaseSingleton.getInstance(null);
 
         Bundle args = getArguments();
-        ListView listView=getActivity().findViewById(R.id.home_schedule_list);
+        //ListView listView=getActivity().findViewById(R.id.home_schedule_list);
         sdb = ScheduleDataBaseSingleton.getInstance(null);
 
 
 
 
+
         timeText=getActivity().findViewById(R.id.study_time);
-        new DataStoreAsyncTask(db, getActivity(), timeText,0,sdb,listView,view.getContext()).execute();
+        RecyclerView recyclerView = getActivity().findViewById(R.id.home_schedule_recycler_view);
+        recyclerView.setHasFixedSize(false);
+
+        // use a linear layout manager
+        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(view.getContext());
+
+        recyclerView.setLayoutManager(rLayoutManager);
+
+        new DataStoreAsyncTask(db, getActivity(), timeText,0,sdb,recyclerView,view.getContext()).execute();
 
 
 
@@ -120,21 +131,23 @@ public class HomeFragment extends Fragment {
         long s;
         long times;
         long i;
+        RecyclerView recyclerView;
 
         ListView listView;
         Context context;
 
-        static List<Map<String,String>> items = new ArrayList<Map<String, String>>();
+        static List<String> iName = new ArrayList<String>();
+        static List<String> iDate = new ArrayList<String>();
         static SimpleAdapter adapter;
 
 
-        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity, TextView textView,long s,ScheduleDataBase sdb,ListView listView,Context context) {
+        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity, TextView textView,long s,ScheduleDataBase sdb,RecyclerView recyclerView,Context context) {
             this.db = db;
             weakActivity = new WeakReference<>(activity);
             this.textView = textView;
             this.s=s;
             this.sdb=sdb;
-            this.listView=listView;
+            this.recyclerView=recyclerView;
             this.context=context;
 
 
@@ -176,16 +189,18 @@ public class HomeFragment extends Fragment {
             }
             List<ScheduleDB> sList = scheduleDBDao.getAll();
             System.out.println("got");
-            items.clear();
+            iName.clear();
+            iDate.clear();
             date=new Date();
 
             for (ScheduleDB at: sList) {
-                Map<String,String> data = new HashMap();
-                data.put("name",at.getName());
+                //Map<String,String> data = new HashMap();
+                //data.put("name",at.getName());
                 long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
+                iName.add(at.getName());
+                iDate.add(String.format(Locale.US, "残り%1$02d日", t));
+                //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
 
-                data.put("time",String.format(Locale.US, "残り%1$02d日", t));
-                items.add(data);
                 System.out.println(at.getName());
                 System.out.println(at.getStart());
                 System.out.println(at.getEnd());
@@ -211,10 +226,15 @@ public class HomeFragment extends Fragment {
             long ss = times*100 / 1000 % 60;
             long ms = (times*100 - ss * 1000 - mm * 1000 * 60)/100;
 
-            ;
+
 
 
             textView.setText(String.format(Locale.US, "%1$02d:%2$02d.%3$01d", mm, ss, ms));
+
+            HomeAdapter homeAdapter = new HomeAdapter(iName,iDate);
+            recyclerView.setAdapter(homeAdapter);
+
+            /*
             adapter = new SimpleAdapter(
                     context,
                     items,
@@ -224,6 +244,7 @@ public class HomeFragment extends Fragment {
             );
             listView.setAdapter(adapter);
             System.out.println("c");
+            */
         }
         public long getTimes(){
             System.out.println("ans:");
