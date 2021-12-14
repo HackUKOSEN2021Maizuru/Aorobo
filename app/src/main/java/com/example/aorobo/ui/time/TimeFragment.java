@@ -67,6 +67,7 @@ public class TimeFragment extends Fragment {
 
     private TextView timerText;
     private TextView logText;
+    private TextView startText;
     private TextView log;
     private long count, delay, period;
     private String zero;
@@ -121,8 +122,10 @@ public class TimeFragment extends Fragment {
         period = 100;
         // "00:00.0"
         zero = getString(R.string.zero);
+        count=0;
         timerText = getActivity().findViewById(R.id.TimeText);
         timerText.setText(zero);
+        startText=getActivity().findViewById(R.id.StartButton);
         logText = getActivity().findViewById(R.id.LogText);
         new DataStoreAsyncTask(db, getActivity(), logText,0).execute();
 
@@ -137,21 +140,37 @@ public class TimeFragment extends Fragment {
                 if(null != timer){
                     timer.cancel();
                     timer = null;
+                    startButton.setText("再開");
+
+                }
+                else if(count!=0){
+                    timer = new Timer();
+
+                    // TimerTask インスタンスを生成
+                    timerTask = new TimeFragment.CountUpTimerTask();
+
+                    timer.schedule(timerTask, delay, period);
+                    startButton.setText("一時停止");
+                }
+                else{
+                    // Timer インスタンスを生成
+                    timer = new Timer();
+
+                    // TimerTask インスタンスを生成
+                    timerTask = new TimeFragment.CountUpTimerTask();
+
+                    // スケジュールを設定 100msec
+                    // public void schedule (TimerTask task, long delay, long period)
+                    timer.schedule(timerTask, delay, period);
+
+                    // カウンター
+                    count = 0;
+                    timerText.setText(zero);
+
+                    startButton.setText("一時停止");
                 }
 
-                // Timer インスタンスを生成
-                timer = new Timer();
 
-                // TimerTask インスタンスを生成
-                timerTask = new TimeFragment.CountUpTimerTask();
-
-                // スケジュールを設定 100msec
-                // public void schedule (TimerTask task, long delay, long period)
-                timer.schedule(timerTask, delay, period);
-
-                // カウンター
-                count = 0;
-                timerText.setText(zero);
 
             }
         });
@@ -162,7 +181,7 @@ public class TimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // timer がnullでない、起動しているときのみcancleする
-                if(null != timer){
+                if(count>0){
 
                     DataStoreAsyncTask ds =new DataStoreAsyncTask(db, getActivity(), logText,count);
                     ds.execute();
@@ -170,10 +189,14 @@ public class TimeFragment extends Fragment {
                     //long l=
                     //logText.setText(getTimeString(ds.getTimes()));
                     // Cancel
-                    timer.cancel();
-                    timer = null;
+                    if(timer!=null){
+                        timer.cancel();
+                        timer = null;
+                    }
+
                     timerText.setText(zero);
                     count = 0;
+                    startButton.setText("計測開始");
 
 
                 }
