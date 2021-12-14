@@ -122,7 +122,7 @@ public class TimeFragment extends Fragment {
 
 
 
-        ImageButton startButton = getActivity().findViewById(R.id.StartButton);
+        Button startButton = getActivity().findViewById(R.id.StartButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,7 +150,7 @@ public class TimeFragment extends Fragment {
         });
 
         // タイマー終了
-        ImageButton stopButton = getActivity().findViewById(R.id.StopButton);
+        Button stopButton = getActivity().findViewById(R.id.StopButton);
         stopButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

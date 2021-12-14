@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/aorobo_header"
+            android:background="@drawable/aorobo_header2"
             app:popupTheme="@style/Theme.Aorobo.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>

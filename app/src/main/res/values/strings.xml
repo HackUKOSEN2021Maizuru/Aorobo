@@ -37,6 +37,7 @@
     <string name="to_bluetooth_setting">bluetooth設定へ</string>
     <string name="connected_corobo">接続中のころボ</string>
     <string name="corobo_name">ころボ1号</string>
-
+    <string name="time_start">計測開始</string>
+    <string name="time_stop">計測終了</string>
 
 </resources>
