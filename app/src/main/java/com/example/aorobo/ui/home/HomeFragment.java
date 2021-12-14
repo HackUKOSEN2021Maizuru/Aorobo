@@ -222,14 +222,11 @@ public class HomeFragment extends Fragment {
             if(activity == null) {
                 return;
             }
-            long mm = times*100 / 1000 / 60;
-            long ss = times*100 / 1000 % 60;
-            long ms = (times*100 - ss * 1000 - mm * 1000 * 60)/100;
+            long mm = times*100 / 1000 / 60/60;
+            long ss = (times*100 / 1000 / 60)%60;
+            long ms = (times*100 / 1000) % 60;
 
-
-
-
-            textView.setText(String.format(Locale.US, "%1$02d:%2$02d.%3$01d", mm, ss, ms));
+            textView.setText(String.format(Locale.US, "%1$02d:%2$02d", mm, ss));
 
             HomeAdapter homeAdapter = new HomeAdapter(iName,iDate);
             recyclerView.setAdapter(homeAdapter);
