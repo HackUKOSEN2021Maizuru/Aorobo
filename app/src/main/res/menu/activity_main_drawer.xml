@@ -17,10 +17,7 @@
             android:id="@+id/nav_schedule"
             android:icon="@android:drawable/ic_menu_recent_history"
             android:title="@string/menu_schedule" />
-        <item
-            android:id="@+id/nav_startpage"
-            android:icon="@drawable/ic_baseline_calendar_today_24"
-            android:title="@string/menu_slideshow" />
+
         <item
             android:id="@+id/nav_talk"
             android:icon="@drawable/i_chat"
@@ -33,6 +30,11 @@
             android:id="@+id/nav_bluetooth"
             android:icon="@drawable/colobo_studygraph"
             android:title="@string/menu_bluetooth" />
+
+        <item
+            android:id="@+id/nav_startpage"
+            android:icon="@drawable/ic_baseline_calendar_today_24"
+            android:title="@string/menu_title" />
 
     </group>
 </menu>
