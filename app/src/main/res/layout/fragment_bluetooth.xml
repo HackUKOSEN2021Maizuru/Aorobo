@@ -29,6 +29,7 @@
             android:id="@+id/to_bluetooth_setting"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="30dp"
             android:gravity="right"
             android:text="@string/to_bluetooth_setting"

@@ -32,12 +32,13 @@
     <string name="schedule_save">保存</string>
     <string name="schedule_start">Start</string>
     <string name="schedule_end">End</string>
-    <string name="bluetooth_setting">bluetoothを\nオンにしてください</string>
+    <string name="bluetooth_setting">ころボを接続してください</string>
     <string name="bluetooth_setting2">ころボを探しています</string>
-    <string name="to_bluetooth_setting">bluetooth設定へ</string>
+    <string name="to_bluetooth_setting">接続設定へ</string>
     <string name="connected_corobo">接続中のころボ</string>
     <string name="corobo_name">ころボ1号</string>
     <string name="time_start">計測開始</string>
     <string name="time_stop">計測終了</string>
+    <string name="del">削除</string>
 
 </resources>
