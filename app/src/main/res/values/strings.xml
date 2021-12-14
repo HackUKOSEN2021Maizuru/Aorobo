@@ -40,5 +40,6 @@
     <string name="time_start">計測開始</string>
     <string name="time_stop">計測終了</string>
     <string name="del">削除</string>
+    <string name="title">title</string>
 
 </resources>

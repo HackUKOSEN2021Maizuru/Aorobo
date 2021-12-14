@@ -26,8 +26,13 @@
             android:icon="@drawable/i_chat"
             android:title="@string/menu_talk" />
         <item
+            android:id="@+id/nav_first_title"
+            android:icon="@drawable/colobo_studygraph"
+            android:title="@string/title" />
+        <item
             android:id="@+id/nav_bluetooth"
             android:icon="@drawable/colobo_studygraph"
             android:title="@string/menu_bluetooth" />
+
     </group>
 </menu>

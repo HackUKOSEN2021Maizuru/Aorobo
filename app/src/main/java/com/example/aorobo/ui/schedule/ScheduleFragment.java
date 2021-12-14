@@ -16,11 +16,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,14 +61,18 @@ public class ScheduleFragment extends Fragment{
         View root = binding.getRoot();
 
 
+
         return root;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //listView=getActivity().findViewById(R.id.shedule_list);
+
         db = ScheduleDataBaseSingleton.getInstance(null);
+        //getActivity().getSu
 
         RecyclerView recyclerView = getActivity().findViewById(R.id.shedule_list);
         recyclerView.setHasFixedSize(true);
