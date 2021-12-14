@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFEED0"
     tools:context=".ui.home.HomeFragment">
 
     <ScrollView
@@ -107,7 +108,7 @@
                 <TextView
                     android:id="@+id/study_time"
                     android:layout_width="match_parent"
-                    android:layout_height="77dp"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/_00_00"
                     android:textSize="48sp" />
