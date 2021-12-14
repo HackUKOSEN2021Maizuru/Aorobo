@@ -5,7 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFEED0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="178dp"
+        android:layout_height="339dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/back_kolobo" />
+
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -18,60 +37,43 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/shedule_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:background="#FF0000" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:gravity="bottom"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView5"
+        <View
+            android:id="@+id/view4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/border1"
-            tools:ignore="ImageContrastCheck,ImageContrastCheck" />
+            android:layout_height="5dp"
+            android:background="@color/head" />
 
         <Button
             android:id="@+id/add_button"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:backgroundTint="#FFFFFF"
-            android:backgroundTintMode="add"
+            android:backgroundTint="@color/white"
+            android:stateListAnimator="@null"
             android:text="@string/button_add_schedule"
             android:textSize="24sp"
             app:icon="@android:drawable/ic_menu_add" />
 
-        <ImageView
-            android:id="@+id/imageView2"
+        <View
+            android:id="@+id/view8"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/border1" />
-
-        <Button
-            android:id="@+id/dif_button"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:backgroundTint="#FFFFFF"
-            android:backgroundTintMode="add"
-            android:text="@string/button_dif_schedule"
-            android:textSize="24sp"
-            app:icon="@android:drawable/ic_menu_delete" />
-
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/border1"
-            tools:ignore="ImageContrastCheck,ImageContrastCheck" />
+            android:layout_height="5dp"
+            android:background="@color/head" />
 
     </LinearLayout>
 
