@@ -58,6 +58,7 @@
                 android:text="@string/schedule_default_period"
                 android:textSize="14sp" />
 
+
             <TextView
                 android:id="@+id/schedule_limit"
                 android:layout_width="163dp"
