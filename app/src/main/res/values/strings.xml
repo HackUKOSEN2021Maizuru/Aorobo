@@ -41,5 +41,6 @@
     <string name="time_stop">計測終了</string>
     <string name="del">削除</string>
     <string name="title">title</string>
+    <string name="menu_title">タイトルへ戻る</string>
 
 </resources>
