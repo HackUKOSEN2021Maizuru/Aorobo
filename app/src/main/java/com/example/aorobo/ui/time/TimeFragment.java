@@ -96,11 +96,18 @@ public class TimeFragment extends Fragment {
 
 
     public String getTimeString(long time){
+        /*
         long mm = time*100 / 1000 / 60;
         long ss = time*100 / 1000 % 60;
         long ms = (time*100 - ss * 1000 - mm * 1000 * 60)/100;
 
-        return String.format(Locale.US, "%1$02d:%2$02d.%3$01d", mm, ss, ms);
+         */
+
+        long mm = time*100 / 1000 / 60/60;
+        long ss = (time*100 / 1000 / 60)%60;
+        long ms = (time*100 / 1000) % 60;
+
+        return String.format(Locale.US, "%1$01d:%2$02d:%3$02d", mm, ss, ms);
     }
 
     @Override

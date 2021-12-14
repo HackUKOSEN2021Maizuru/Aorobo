@@ -12,7 +12,7 @@
     <string name="pop01">Pop 01</string>
     <string name="button02">Button 02</string>
     <string name="pop02">Pop 02</string>
-    <string name="zero">"00:00.0"</string>
+    <string name="zero">"0:00:00"</string>
     <string name="menu_home">メイン</string>
     <string name="menu_gallery">勉強</string>
     <string name="menu_slideshow">カレンダー</string>
