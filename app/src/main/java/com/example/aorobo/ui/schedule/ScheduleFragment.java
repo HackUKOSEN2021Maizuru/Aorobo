@@ -75,6 +75,7 @@ public class ScheduleFragment extends Fragment{
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(view.getContext());
 
         recyclerView.setLayoutManager(rLayoutManager);
+
         new DataStoreAsyncTask(db, getActivity(),recyclerView,view.getContext()).execute();
 
 
@@ -108,14 +109,18 @@ public class ScheduleFragment extends Fragment{
         Context context;
         RecyclerView recyclerView;
         ScheduleAdapter scheduleAdapter;
+        Activity activity;
+
 
 
         static List<String> iName = new ArrayList<String>();
         static List<String> iDate = new ArrayList<String>();
+        static List<Integer> ids = new ArrayList<Integer>();
         //static SimpleAdapter adapter;
         public DataStoreAsyncTask(ScheduleDataBase db, Activity activity, RecyclerView recyclerView, Context context) {
             this.db = db;
             weakActivity = new WeakReference<>(activity);
+            this.activity=activity;
             this.recyclerView=recyclerView;
             this.context=context;
         }
@@ -137,6 +142,7 @@ public class ScheduleFragment extends Fragment{
                 long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
                 iName.add(at.getName());
                 iDate.add(String.format(Locale.US, "残り%1$02d日", t));
+                ids.add(at.getId());
                 //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
                 System.out.println(at.getName());
                 System.out.println(at.getStart());
@@ -152,6 +158,7 @@ public class ScheduleFragment extends Fragment{
             return 0;
         }
 
+
         @Override
         protected void onPostExecute(Integer code) {
             Activity activity = weakActivity.get();
@@ -162,7 +169,8 @@ public class ScheduleFragment extends Fragment{
 
 
             System.out.println("b");
-            scheduleAdapter = new ScheduleAdapter(iName,iDate);
+            scheduleAdapter = new ScheduleAdapter(iName,iDate,ids);
+            //scheduleAdapter.setHasStableIds(true);
             recyclerView.setAdapter(scheduleAdapter);
             listsSwipe();
             /*
@@ -195,12 +203,14 @@ public class ScheduleFragment extends Fragment{
                 public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                     int position = viewHolder.getAdapterPosition();
                     //((ViewAdapter)recyclerView.getAdapter()).removeItem(position);
-                    long id = scheduleAdapter.getItemId(position);
+                    int id = scheduleAdapter.getId(position);
+
                     iName.remove(position);
                     iDate.remove(position);
+                    ids.remove(position);
                     ScheduleDBDao scheduleDBDao = db.ScheduleDBDao();
-                    //scheduleDBDao.delete();
-
+                    //scheduleDBDao.delete((int)id);
+                    new DataStoreAsyncTaskDelete(db,activity,(int)id).execute();
                     scheduleAdapter.notifyDataSetChanged();
 
                 }
@@ -209,6 +219,50 @@ public class ScheduleFragment extends Fragment{
             new ItemTouchHelper(mIth).attachToRecyclerView(recyclerView);
 
         }
+
+    }
+
+    private static class DataStoreAsyncTaskDelete extends AsyncTask<Void, Void, Integer> {
+        private WeakReference<Activity> weakActivity;
+        private ScheduleDataBase db;
+        int id;
+
+
+
+        static List<String> iName = new ArrayList<String>();
+        static List<String> iDate = new ArrayList<String>();
+        //static SimpleAdapter adapter;
+        public DataStoreAsyncTaskDelete(ScheduleDataBase db,Activity activity, int id) {
+            this.db = db;
+            weakActivity = new WeakReference<>(activity);
+            this.id=id;
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            ScheduleDBDao scheduleDBDao = db.ScheduleDBDao();
+            //timeDBDao.nukeTable();
+
+            System.out.println("deleteid:"+id);
+            scheduleDBDao.delete(id);
+
+
+            return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer code) {
+            Activity activity = weakActivity.get();
+            if(activity == null) {
+                return;
+            }
+
+
+
+
+
+        }
+
 
     }
 }

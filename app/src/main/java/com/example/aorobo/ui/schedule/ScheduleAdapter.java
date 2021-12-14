@@ -47,6 +47,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     private final List<String> iNames;
     private final List<String> iDate;
+    private final List<Integer> id;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -57,18 +58,21 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         //ImageView imageView;
         TextView textView;
         TextView dateView;
+        TextView idView;
 
         ViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.schedule_name);
             dateView = v.findViewById(R.id.schedule_limit);
+            //schedule_id
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    ScheduleAdapter(List<String> itemNames, List<String> itemDate) {
+    ScheduleAdapter(List<String> itemNames, List<String> itemDate,List<Integer>id) {
         this.iNames = itemNames;
         this.iDate = itemDate;
+        this.id=id;
     }
 
     // Create new views (invoked by the layout manager)
@@ -90,11 +94,18 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.textView.setText(iNames.get(position));
-        holder.dateView.setText(iDate.get(position));    }
+        holder.dateView.setText(iDate.get(position));
+
+    }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return iNames.size();
+    }
+
+    public int getId(int position) {
+
+        return id.get(position);
     }
 }

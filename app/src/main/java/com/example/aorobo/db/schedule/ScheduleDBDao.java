@@ -24,8 +24,8 @@ public interface ScheduleDBDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ScheduleDB schedule);
 
-    @Delete
-    void delete(ScheduleDB schedule);
+    @Query("delete from scheduledb where id = :id")
+    void delete(int id);
 
     @Query("DELETE FROM scheduledb")
     public void deleteAll();
