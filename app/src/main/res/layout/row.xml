@@ -3,70 +3,84 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/row_data"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <View
-            android:id="@+id/view5"
-            android:layout_width="33dp"
-            android:layout_height="53dp"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="84dp"
-            android:layout_height="63dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/i_ball_katlay" />
-
-        <TextView
-            android:id="@+id/schedule_name"
-            android:layout_width="332dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/schedule_default_title"
-            android:textSize="34sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="vertical"
-        android:outlineProvider="none">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="43dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <View
-                android:id="@+id/view"
-                android:layout_width="80dp"
-                android:layout_height="35dp"
+                android:id="@+id/view5"
+                android:layout_width="33dp"
+                android:layout_height="53dp"
                 android:layout_weight="1" />
 
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="84dp"
+                android:layout_height="63dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/i_ball_katlay" />
+
             <TextView
-                android:id="@+id/schedule_contents"
-                android:layout_width="167dp"
+                android:id="@+id/schedule_name"
+                android:layout_width="332dp"
                 android:layout_height="wrap_content"
-                android:text="@string/schedule_default_period"
-                android:textSize="14sp" />
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/schedule_default_title"
+                android:textSize="34sp" />
 
-
-            <TextView
-                android:id="@+id/schedule_limit"
-                android:layout_width="163dp"
-                android:layout_height="35dp"
-                android:layout_weight="50"
-                android:text="@string/schedule_default_limit"
-                android:textSize="24sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:outlineProvider="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/schedule_contents"
+                    android:layout_width="167dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/schedule_default_period"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/schedule_limit"
+                    android:layout_width="163dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="50"
+                    android:text="@string/schedule_default_limit"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/border1" />
 
     </LinearLayout>
 
