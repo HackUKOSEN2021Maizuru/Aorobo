@@ -42,5 +42,6 @@
     <string name="del">削除</string>
     <string name="title">title</string>
     <string name="menu_title">タイトルへ戻る</string>
-
+    <string name="fav_now">ただいまの好感度</string>
+    <string name="fav_num">94</string>
 </resources>

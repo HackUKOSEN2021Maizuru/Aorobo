@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFEED0">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,9 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
             android:text="@string/connected_corobo"
-            android:textSize="24sp"
-            tools:layout_marginTop="50dp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/corobo_name"
@@ -36,9 +37,44 @@
             app:srcCompat="@drawable/border1"
             tools:ignore="ImageContrastCheck,ImageContrastCheck" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/frame2"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/fav_now"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/gomarice_mukasi_mukasi"
+                android:gravity="center"
+                android:shadowColor="#DA9B9B"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="10"
+                android:text="@string/fav_num"
+                android:textColor="#FFE3AA"
+                android:textSize="80sp" />
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/gifView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
