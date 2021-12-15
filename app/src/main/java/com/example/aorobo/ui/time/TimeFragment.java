@@ -1,16 +1,19 @@
 package com.example.aorobo.ui.time;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.annotation.NonNull;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.app.Activity;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +25,20 @@ import java.util.Timer;
 import java.util.TimerTask;
 import android.os.Handler;
 import android.os.Looper;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.annotation.GlideType;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.aorobo.R;
 import com.example.aorobo.db.AppDatabase;
 import com.example.aorobo.db.AppDatabaseSingleton;
@@ -73,6 +90,7 @@ public class TimeFragment extends Fragment {
     private String zero;
     private WeakReference<Activity> weakActivity;
     private StudyTimeDataBase db;
+    private RequestManager glide;
 
     static TimeFragment newInstance(int count){
         // Fragemnt01 インスタンス生成
@@ -128,9 +146,7 @@ public class TimeFragment extends Fragment {
         startText=getActivity().findViewById(R.id.StartButton);
         logText = getActivity().findViewById(R.id.LogText);
         new DataStoreAsyncTask(db, getActivity(), logText,0).execute();
-
-
-
+        glide=Glide.with(this);
 
         Button startButton = getActivity().findViewById(R.id.StartButton);
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -198,6 +214,20 @@ public class TimeFragment extends Fragment {
                     count = 0;
                     startButton.setText("計測開始");
 
+                    glide.load(R.raw.study_end)
+                            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+
+                            .into(new DrawableImageViewTarget(getActivity().findViewById(R.id.imageView4)) {
+                                @Override
+                                public void onResourceReady(Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                    if (resource instanceof GifDrawable) {
+                                        ((GifDrawable) resource).setLoopCount(1);
+                                    }
+                                    super.onResourceReady(resource, transition);
+                                }
+                            });
+
+
 
                 }
             }
@@ -216,6 +246,7 @@ public class TimeFragment extends Fragment {
         });
         */
     }
+
 
 
 
@@ -261,7 +292,7 @@ public class TimeFragment extends Fragment {
             Date date =new Date();
             System.out.println("date");
             System.out.println(date);
-            date = new Date(date.getYear(),date.getMonth(),date.getDay());
+            //date = new Date(date.getYear(),date.getMonth(),date.getDay());
             System.out.println(date);
             if(s>0){
 
