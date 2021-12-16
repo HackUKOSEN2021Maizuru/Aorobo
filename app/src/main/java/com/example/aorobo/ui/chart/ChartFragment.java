@@ -15,6 +15,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentBluetoothBinding;
+import com.example.aorobo.databinding.FragmentChartBinding;
+import com.example.aorobo.databinding.FragmentGalleryBinding;
+import com.example.aorobo.ui.gallery.GalleryViewModel;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -25,5 +28,22 @@ import android.content.Intent;
 import android.content.Context;
 
 public class ChartFragment extends Fragment {
+
+    private FragmentChartBinding binding;
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+
+
+        binding = FragmentChartBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+
+        return root;
+    }
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
 
 }
