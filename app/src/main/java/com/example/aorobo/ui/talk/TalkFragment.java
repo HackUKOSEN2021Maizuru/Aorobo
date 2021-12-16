@@ -52,7 +52,7 @@ public class TalkFragment extends Fragment{
         ImageView imageView  = getActivity().findViewById(R.id.gifView);
 
         //ImageView matchImage = getActivity().findViewById(R.id.image_view);
-        loadImage(Glide.with(this), R.raw.colob_roll, getActivity().findViewById(R.id.gifView));
+        loadImage(Glide.with(this), R.raw.colob_rolling2, getActivity().findViewById(R.id.gifView));
         //Glide.with(this.getContext()).load(R.raw.colob_roll).into(imageView);
 
     }
