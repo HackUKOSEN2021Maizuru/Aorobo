@@ -45,4 +45,6 @@
     <string name="fav_now">ただいまの好感度</string>
     <string name="fav_num">94</string>
     <string name="today_task">きょうの予定</string>
+    <string name="scale_h">10</string>
+    <string name="scale_v">10</string>
 </resources>
