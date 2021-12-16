@@ -89,4 +89,9 @@
         android:name="com.example.aorobo.ui.first.FirstTitle"
         android:label=""
         tools:layout="@layout/fragment_first_title" />
+    <fragment
+        android:id="@+id/nav_chart"
+        android:name="com.example.aorobo.ui.chart.ChartFragment"
+        android:label=""
+        tools:layout="@layout/fragment_chart" />
 </navigation>
