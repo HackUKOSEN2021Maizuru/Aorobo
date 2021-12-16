@@ -77,8 +77,8 @@
     <fragment
         android:id="@+id/nav_today"
         android:name="com.example.aorobo.ui.today.TodayFragment"
-        android:label=""
-        tools:layout="@layout/fragment_today">
+        android:layout="@layout/fragment_today"
+        android:label="">
         <action
             android:id="@+id/action_today_to_home"
             app:destination="@id/nav_home" />
