@@ -3,11 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.gallery.GalleryFragment">
+    android:layout_height="match_parent" >
 
     <ImageButton
-        android:id="@+id/app_start_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#FFD28F"
@@ -26,7 +24,7 @@
         tools:layout_editor_absoluteY="363dp">
 
         <ImageView
-            android:id="@+id/gifStartView"
+            android:id="@+id/gif_loading_View"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
