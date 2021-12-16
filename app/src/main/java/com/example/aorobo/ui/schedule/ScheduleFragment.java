@@ -146,11 +146,18 @@ public class ScheduleFragment extends Fragment{
                 //Map<String,String> data = new HashMap();
                 //data.put("name",at.getName());
 
+                if(at.getEnd().getTime()+24*60*60*1000<date.getTime()){
+                    scheduleDBDao.delete(at.getId());
+                    continue;
+                }
 
                 long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
                 iName.add(at.getName());
-                iDate.add(String.format(Locale.US, "残り%1$02d日", t));
-                ids.add(at.getId());
+                if(at.getEnd().getTime()<date.getTime()){
+                    iDate.add("TODAY!");
+                }else{
+                    iDate.add(String.format(Locale.US, "残り%1$02d日", t));
+                }
                 //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
                 System.out.println(at.getName());
                 System.out.println(at.getStart());

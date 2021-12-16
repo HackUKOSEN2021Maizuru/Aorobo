@@ -230,7 +230,7 @@ public class HomeFragment extends Fragment {
                 //data.put("name",at.getName());
                 if(at.getEnd().getTime()+24*60*60*1000<date.getTime()){
                     scheduleDBDao.delete(at.getId());
-                    break;
+                    continue;
                 }
 
                 long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
