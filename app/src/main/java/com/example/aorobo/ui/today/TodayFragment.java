@@ -21,13 +21,13 @@ import androidx.navigation.Navigation;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.aorobo.R;
-import com.example.aorobo.databinding.FragmentGalleryBinding;
+import com.example.aorobo.databinding.FragmentTodayBinding;
 import com.example.aorobo.ui.gallery.GalleryViewModel;
 
 public class TodayFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
-    private FragmentGalleryBinding binding;
+    private FragmentTodayBinding binding;
     private Handler mHandler = new Handler();
     /** テキストオブジェクト */
     private Runnable updateText;
@@ -38,7 +38,7 @@ public class TodayFragment extends Fragment {
         galleryViewModel =
                 new ViewModelProvider(this).get(GalleryViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentTodayBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
 
