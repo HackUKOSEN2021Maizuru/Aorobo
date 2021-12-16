@@ -48,7 +48,7 @@ public class BluetoothConnectedFragment extends Fragment{
                              ViewGroup container, Bundle savedInstanceState) {
 
         ImageView matchImage = getActivity().findViewById(R.id.gifView);
-        Glide.with(this).load(R.raw.gif_colob_rolling).into(matchImage);
+        Glide.with(this).load(R.raw.colob_roll).into(matchImage);
 
         binding = FragmentBluetoothConnectedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
