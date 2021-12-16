@@ -2,6 +2,7 @@ package com.example.aorobo.ui.home;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -86,6 +87,9 @@ public class HomeFragment extends Fragment {
 
 
 
+
+
+
         timeText=getActivity().findViewById(R.id.study_time);
 
         RecyclerView recyclerView = getActivity().findViewById(R.id.home_schedule_recycler_view);
@@ -105,6 +109,16 @@ public class HomeFragment extends Fragment {
 
         new DataStoreAsyncTask(db, getActivity(), timeText,0,sdb,recyclerView,view.getContext()).execute();
 
+
+        BluetoothAdapter mBluetoothAdapter;
+
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter == null) {
+            // エラー: Bluetooth なし.
+            System.out.println("no bluetooth!!");
+        }else{
+            System.out.println("yes bluetooth!!");
+        }
 
 
         // BackStackで１つ戻す
