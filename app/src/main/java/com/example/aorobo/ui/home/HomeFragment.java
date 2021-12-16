@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -255,10 +256,28 @@ public class HomeFragment extends Fragment {
             iconlist.add(R.id.imageViewhomeicon3);
             iconlist.add(R.id.imageViewhomeicon4);
 
-
+            LinearLayout linearLayout=activity.findViewById(R.id.study_lay);
+            System.out.println("width"+linearLayout.getWidth());
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(linearLayout.getWidth()/5-50,linearLayout.getWidth()/5-50);
             for(int i=0;i<5;i++){
                 ImageView imageViewicon = activity.findViewById(iconlist.get(i));
+
+            //MaxHeight(linearLayout.getWidth()/5-50);
+                imageViewicon.setMaxWidth(linearLayout.getWidth()/5-50);
+                imageViewicon.setMaxHeight(linearLayout.getWidth()/5-50);
                 imageViewicon.setImageResource(R.drawable.colobo_studygraph);
+                System.out.println("icon"+imageViewicon.getWidth());
+                //imageViewicon.setLayoutParams(params);
+                //imageViewicon.setMaxWidth(R.id.study_lay/5-50);
+            }
+            for(int i=0;i<5;i++){
+                ImageView imageViewicon = activity.findViewById(iconlist.get(i));
+
+                //MaxHeight(linearLayout.getWidth()/5-50);
+                //imageViewicon.setMaxWidth(linearLayout.getWidth()/5-50);
+                //imageViewicon.setImageResource(R.drawable.colobo_studygraph);
+                System.out.println("icon::"+imageViewicon.getWidth());
+                //imageViewicon.setLayoutParams(params);
                 //imageViewicon.setMaxWidth(R.id.study_lay/5-50);
             }
 
