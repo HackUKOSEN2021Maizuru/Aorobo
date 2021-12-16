@@ -38,6 +38,7 @@ import com.example.aorobo.db.time.TimeDBDao;
 import com.example.aorobo.ui.time.TimeFragment;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -165,6 +166,7 @@ public class HomeFragment extends Fragment {
         static List<String> iName = new ArrayList<String>();
         static List<String> iDate = new ArrayList<String>();
         static List<String> icnt = new ArrayList<String>();
+        static List<String> iPeriod = new ArrayList<String>();
         static SimpleAdapter adapter;
 
 
@@ -220,6 +222,7 @@ public class HomeFragment extends Fragment {
             iName.clear();
             iDate.clear();
             icnt.clear();
+            iPeriod.clear();
             date=new Date();
             System.out.println("fafdsaffsfsdf");
             icnt.add("");
@@ -232,7 +235,12 @@ public class HomeFragment extends Fragment {
                     scheduleDBDao.delete(at.getId());
                     continue;
                 }
+                String st = new SimpleDateFormat("yyyy.MM.dd").format(at.getStart());
+                String en = new SimpleDateFormat("yyyy.MM.dd").format(at.getEnd());
 
+                //iPeriod.add(String.format(Locale.US, "%1$04d.%2$02d.%3$02d~%4$04d.%5$02d.%6$02d", at.getStart().getYear(),at.getStart().getMonth(),at.getStart().getDay(),at.getEnd().getYear(),at.getEnd().getMonth(),at.getEnd().getDay()));
+
+                iPeriod.add(st+"~"+en);
                 long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
                 iName.add(at.getName());
                 if(at.getEnd().getTime()<date.getTime()){
@@ -271,7 +279,7 @@ public class HomeFragment extends Fragment {
 
             textView.setText(String.format(Locale.US, "%1$02d:%2$02d", mm, ss));
 
-            HomeAdapter homeAdapter = new HomeAdapter(iName,iDate);
+            HomeAdapter homeAdapter = new HomeAdapter(iName,iDate,iPeriod);
             recyclerView.setAdapter(homeAdapter);
             //int x=R.id.imageViewhomeicon0;
             List<Integer> iconlist=new ArrayList<Integer>();
