@@ -149,6 +149,9 @@ public class TimeFragment extends Fragment {
         glide=Glide.with(this);
 
         Button startButton = getActivity().findViewById(R.id.StartButton);
+        ImageView studyimage=getActivity().findViewById(R.id.imageView4);
+        studyimage.setImageResource(R.raw.study_end);
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
