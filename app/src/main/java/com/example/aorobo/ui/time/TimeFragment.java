@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.annotation.NonNull;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -129,6 +130,7 @@ public class TimeFragment extends Fragment {
         return String.format(Locale.US, "%1$01d:%2$02d:%3$02d", mm, ss, ms);
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -149,6 +151,9 @@ public class TimeFragment extends Fragment {
         glide=Glide.with(this);
 
         Button startButton = getActivity().findViewById(R.id.StartButton);
+        ImageView studyimage=getActivity().findViewById(R.id.imageView4);
+        studyimage.setImageResource(R.raw.study_end);
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

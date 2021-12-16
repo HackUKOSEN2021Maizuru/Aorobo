@@ -145,6 +145,8 @@ public class ScheduleFragment extends Fragment{
             for (ScheduleDB at: atList) {
                 //Map<String,String> data = new HashMap();
                 //data.put("name",at.getName());
+
+
                 long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
                 iName.add(at.getName());
                 iDate.add(String.format(Locale.US, "残り%1$02d日", t));
