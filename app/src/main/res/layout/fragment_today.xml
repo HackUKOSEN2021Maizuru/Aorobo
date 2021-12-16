@@ -16,22 +16,26 @@
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="100dp"
             android:text="今日の予定は"
             android:textSize="34sp" />
 
-        <TextView
-            android:id="@+id/today_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ScrollView
+            android:id="@+id/today_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="50dp"
             android:background="@drawable/frame2"
-            android:paddingStart="30dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="30dp"
-            android:paddingBottom="10dp"
-            android:text="@string/today_task"
-            android:textSize="34sp" />
+            tools:ignore="SpeakableTextPresentCheck">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" />
+        </ScrollView>
 
         <TextView
             android:id="@+id/textView9"
