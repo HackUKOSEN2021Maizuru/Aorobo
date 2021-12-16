@@ -13,19 +13,19 @@ import java.util.List;
 @Dao
 public interface  FavorabilityDao {
     @Query("SELECT * FROM favorability")
-    List<TimeDB> getAll();
+    List<Favorability> getAll();
 
     @Query("SELECT * FROM favorability WHERE id IN (:ids)")
-    List<TimeDB> loadAllByIds(int[] ids);
+    List<Favorability> loadAllByIds(int[] ids);
 
     @Insert
-    void insertAll(TimeDB... time);
+    void insertAll(Favorability... time);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(TimeDB time);
+    void insert(Favorability time);
 
     @Delete
-    void delete(TimeDB time);
+    void delete(Favorability time);
 
     @Query("DELETE FROM favorability")
     public void deleteAll();
