@@ -13,7 +13,7 @@ public class Favorability {
     @ColumnInfo(name = "favorability")
     public long favorability;
 
-    @ColumnInfo(name = "date")
+    @ColumnInfo(name = "studydate")
     public Date date;
 
     public Favorability(long favorability,Date date) {
