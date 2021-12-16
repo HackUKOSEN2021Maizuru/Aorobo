@@ -263,10 +263,11 @@ public class HomeFragment extends Fragment {
                 ImageView imageViewicon = activity.findViewById(iconlist.get(i));
 
             //MaxHeight(linearLayout.getWidth()/5-50);
-                imageViewicon.setMaxWidth(linearLayout.getWidth()/5-50);
-                imageViewicon.setMaxHeight(linearLayout.getWidth()/5-50);
+
                 imageViewicon.setImageResource(R.drawable.colobo_studygraph);
                 System.out.println("icon"+imageViewicon.getWidth());
+                imageViewicon.setMaxWidth(linearLayout.getWidth()/5-50);
+                imageViewicon.setMaxHeight(linearLayout.getWidth()/5-50);
                 //imageViewicon.setLayoutParams(params);
                 //imageViewicon.setMaxWidth(R.id.study_lay/5-50);
             }

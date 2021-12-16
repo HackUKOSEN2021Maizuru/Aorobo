@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_gallery" >
         <action
             android:id="@+id/action_title_to_home"
-            app:destination="@id/nav_home" />
+            app:destination="@id/nav_today" />
     </fragment>
 
 
@@ -72,6 +72,16 @@
         <action
             android:id="@+id/action_make_to_schedule"
             app:destination="@id/nav_schedule" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_today"
+        android:name="com.example.aorobo.ui.today.TodayFragment"
+        android:label=""
+        tools:layout="@layout/fragment_today">
+        <action
+            android:id="@+id/action_today_to_home"
+            app:destination="@id/nav_home" />
     </fragment>
 
     <fragment
