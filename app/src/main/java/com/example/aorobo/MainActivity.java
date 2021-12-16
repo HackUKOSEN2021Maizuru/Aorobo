@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.aorobo.db.FavorabilityDataBase;
+import com.example.aorobo.db.FavorabilityDataBaseSingleton;
 import com.example.aorobo.db.ScheduleDataBase;
 import com.example.aorobo.db.ScheduleDataBaseSingleton;
 import com.example.aorobo.db.StudyTimeDataBase;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.id.ccccccc);
         StudyTimeDataBase tdb = StudyTimeDataBaseSingleton.getInstance(getApplicationContext());
         ScheduleDataBase sdb= ScheduleDataBaseSingleton.getInstance(getApplicationContext());
+        FavorabilityDataBase fdb= FavorabilityDataBaseSingleton.getInstance(getApplicationContext());
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
 
     }
 

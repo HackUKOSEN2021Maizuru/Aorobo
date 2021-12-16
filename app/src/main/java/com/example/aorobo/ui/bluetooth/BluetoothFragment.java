@@ -41,6 +41,7 @@ public class BluetoothFragment extends Fragment{
     private Set<ScanResult> mResults = new HashSet<>();
     private List<ScanResult> mBatchScanResults = new ArrayList<>();
     private BluetoothLeScanner blescanner;
+    private Context context;
 
     private List<ScanFilter> buildScanFilters(){
         System.out.println("filters");
@@ -65,6 +66,7 @@ public class BluetoothFragment extends Fragment{
                 System.out.println(mResults);
             }
         }
+
 
         @Override
         public void onBatchScanResults(List<ScanResult> results){
