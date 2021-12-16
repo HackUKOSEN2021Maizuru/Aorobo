@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -78,21 +79,28 @@ public class HomeFragment extends Fragment {
         db = StudyTimeDataBaseSingleton.getInstance(null);
 
         Bundle args = getArguments();
-        //ListView listView=getActivity().findViewById(R.id.home_schedule_list);
+        //ListView listView=getActivity().findViewById(R.id.listViewicon);
         sdb = ScheduleDataBaseSingleton.getInstance(null);
 
 
 
 
-
         timeText=getActivity().findViewById(R.id.study_time);
+
         RecyclerView recyclerView = getActivity().findViewById(R.id.home_schedule_recycler_view);
         recyclerView.setHasFixedSize(true);
+
+        RecyclerView recyclerViewIcon= getActivity().findViewById(R.id.home_schedule_recycler_view);
+        recyclerViewIcon.setHasFixedSize(true);
 
         // use a linear layout manager
         RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(view.getContext());
 
         recyclerView.setLayoutManager(rLayoutManager);
+
+        RecyclerView.LayoutManager riconLayoutManager = new LinearLayoutManager(view.getContext());
+
+        recyclerViewIcon.setLayoutManager(riconLayoutManager);
 
         new DataStoreAsyncTask(db, getActivity(), timeText,0,sdb,recyclerView,view.getContext()).execute();
 
@@ -132,12 +140,15 @@ public class HomeFragment extends Fragment {
         long times;
         long i;
         RecyclerView recyclerView;
+        RecyclerView recyclerViewIcon;
 
         ListView listView;
         Context context;
+        static Activity activity;
 
         static List<String> iName = new ArrayList<String>();
         static List<String> iDate = new ArrayList<String>();
+        static List<String> icnt = new ArrayList<String>();
         static SimpleAdapter adapter;
 
 
@@ -149,6 +160,7 @@ public class HomeFragment extends Fragment {
             this.sdb=sdb;
             this.recyclerView=recyclerView;
             this.context=context;
+            this.activity=activity;
 
 
         }
@@ -161,7 +173,7 @@ public class HomeFragment extends Fragment {
             Date date =new Date();
             System.out.println("date");
             System.out.println(date);
-            date = new Date(date.getYear(),date.getMonth(),date.getDay());
+            //date = new Date(date.getYear(),date.getMonth(),date.getDay());
             System.out.println(date);
             System.out.println("今回の勉強時間");
             System.out.println(s);
@@ -191,7 +203,11 @@ public class HomeFragment extends Fragment {
             System.out.println("got");
             iName.clear();
             iDate.clear();
+            icnt.clear();
             date=new Date();
+            System.out.println("fafdsaffsfsdf");
+            icnt.add("");
+            icnt.add("");
 
             for (ScheduleDB at: sList) {
                 //Map<String,String> data = new HashMap();
@@ -206,6 +222,7 @@ public class HomeFragment extends Fragment {
                 System.out.println(at.getEnd());
                 System.out.println(date);
                 System.out.println((at.getEnd().getTime()-date.getTime())/1000/60/60/24);
+
 
             }
 
@@ -230,18 +247,39 @@ public class HomeFragment extends Fragment {
 
             HomeAdapter homeAdapter = new HomeAdapter(iName,iDate);
             recyclerView.setAdapter(homeAdapter);
+            //int x=R.id.imageViewhomeicon0;
+            List<Integer> iconlist=new ArrayList<Integer>();
+            iconlist.add(R.id.imageViewhomeicon0);
+            iconlist.add(R.id.imageViewhomeicon1);
+            iconlist.add(R.id.imageViewhomeicon2);
+            iconlist.add(R.id.imageViewhomeicon3);
+            iconlist.add(R.id.imageViewhomeicon4);
+            iconlist.add(R.id.imageViewhomeicon5);
+            iconlist.add(R.id.imageViewhomeicon6);
+
+            for(int i=0;i<7;i++){
+                ImageView imageViewicon = activity.findViewById(iconlist.get(i));
+                imageViewicon.setImageResource(R.drawable.colobo_studygraph);
+
+            }
+
+            //recyclerViewIcon.setAdapter(new HomeStudyIconAdapter(icnt));
 
             /*
             adapter = new SimpleAdapter(
                     context,
-                    items,
+                    icnt,
                     R.layout.row_home,
                     new String [] {"name", "time"},
                     new int[] {R.id.schedule_name_home, R.id.textView5}
             );
-            listView.setAdapter(adapter);
+
+             */
+            //listView=
+
+            //listView.setAdapter(new ArrayAdapter<String>(context, R.layout.raw_icon, icnt));
             System.out.println("c");
-            */
+
         }
         public long getTimes(){
             System.out.println("ans:");

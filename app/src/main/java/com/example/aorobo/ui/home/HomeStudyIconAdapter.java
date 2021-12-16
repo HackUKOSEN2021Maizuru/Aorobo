@@ -1,21 +1,21 @@
 package com.example.aorobo.ui.home;
 
-
-import android.widget.TextView;
-import com.example.aorobo.R;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.aorobo.R;
+
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class HomeStudyIconAdapter extends RecyclerView.Adapter<HomeStudyIconAdapter.ViewHolder>{
 
-    private final List<String> iNames;
-    private final List<String> iDate;
+    private final List<String> iv;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -24,20 +24,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         // each data item is just a string in this case
         //ImageView imageView;
-        TextView textView;
-        TextView dateView;
+        ImageView imageView;
 
         ViewHolder(View v) {
             super(v);
-            textView = v.findViewById(R.id.schedule_name_home);
-            dateView = v.findViewById(R.id.textView5);
+            imageView = v.findViewById(R.id.imageViewhomeicon);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    HomeAdapter(List<String> itemNames, List<String> itemDate) {
-        this.iNames = itemNames;
-        this.iDate = itemDate;
+    HomeStudyIconAdapter(List<String> iv) {
+        System.out.println("ivivivi!!!");
+        System.out.println(iv.size());
+        this.iv=iv;
     }
 
     // Create new views (invoked by the layout manager)
@@ -46,7 +45,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create a new view
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.row_home, parent, false);
+                .inflate(R.layout.raw_icon, parent, false);
 
         // set the view's size, margins, paddings and layout parameters
 
@@ -58,13 +57,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-
-        holder.textView.setText(iNames.get(position));
-        holder.dateView.setText(iDate.get(position));    }
+        //holder.textView.setText(iNames.get(position));
+        //holder.dateView.setText(iDate.get(position));
+        System.out.println("iconnnnnnn!!!");
+        holder.imageView.setImageResource(R.drawable.colobo_studygraph);
+    }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return iNames.size();
+        return iv.size();
     }
 }
