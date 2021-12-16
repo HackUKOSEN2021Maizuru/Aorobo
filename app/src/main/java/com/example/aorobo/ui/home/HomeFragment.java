@@ -228,9 +228,19 @@ public class HomeFragment extends Fragment {
             for (ScheduleDB at: sList) {
                 //Map<String,String> data = new HashMap();
                 //data.put("name",at.getName());
+                if(at.getEnd().getTime()+24*60*60*1000<date.getTime()){
+                    scheduleDBDao.delete(at.getId());
+                    break;
+                }
+
                 long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
                 iName.add(at.getName());
-                iDate.add(String.format(Locale.US, "残り%1$02d日", t));
+                if(at.getEnd().getTime()<date.getTime()){
+                    iDate.add("TODAY!");
+                }else{
+                    iDate.add(String.format(Locale.US, "残り%1$02d日", t));
+                }
+
                 //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
 
                 System.out.println(at.getName());
