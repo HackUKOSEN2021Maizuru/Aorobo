@@ -254,13 +254,12 @@ public class HomeFragment extends Fragment {
             iconlist.add(R.id.imageViewhomeicon2);
             iconlist.add(R.id.imageViewhomeicon3);
             iconlist.add(R.id.imageViewhomeicon4);
-            iconlist.add(R.id.imageViewhomeicon5);
-            iconlist.add(R.id.imageViewhomeicon6);
 
-            for(int i=0;i<7;i++){
+
+            for(int i=0;i<5;i++){
                 ImageView imageViewicon = activity.findViewById(iconlist.get(i));
                 imageViewicon.setImageResource(R.drawable.colobo_studygraph);
-
+                //imageViewicon.setMaxWidth(R.id.study_lay/5-50);
             }
 
             //recyclerViewIcon.setAdapter(new HomeStudyIconAdapter(icnt));

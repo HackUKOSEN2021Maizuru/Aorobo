@@ -44,4 +44,5 @@
     <string name="menu_title">タイトルへ戻る</string>
     <string name="fav_now">ただいまの好感度</string>
     <string name="fav_num">94</string>
+    <string name="today_task">きょうの予定</string>
 </resources>
