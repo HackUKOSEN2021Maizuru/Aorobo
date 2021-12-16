@@ -84,7 +84,6 @@ public class TimeFragment extends Fragment {
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     private TextView timerText;
-    private TextView logText;
     private TextView startText;
     private TextView log;
     private long count, delay, period;
@@ -146,8 +145,8 @@ public class TimeFragment extends Fragment {
         timerText = getActivity().findViewById(R.id.TimeText);
         timerText.setText(zero);
         startText=getActivity().findViewById(R.id.StartButton);
-        logText = getActivity().findViewById(R.id.LogText);
-        new DataStoreAsyncTask(db, getActivity(), logText,0).execute();
+        //logText = getActivity().findViewById(R.id.LogText);
+        new DataStoreAsyncTask(db, getActivity(),0).execute();
         glide=Glide.with(this);
 
         Button startButton = getActivity().findViewById(R.id.StartButton);
@@ -204,7 +203,7 @@ public class TimeFragment extends Fragment {
                 // timer がnullでない、起動しているときのみcancleする
                 if(count>0){
 
-                    DataStoreAsyncTask ds =new DataStoreAsyncTask(db, getActivity(), logText,count);
+                    DataStoreAsyncTask ds =new DataStoreAsyncTask(db, getActivity(),count);
                     ds.execute();
                     System.out.println("gettimes:");
                     //long l=
@@ -276,17 +275,17 @@ public class TimeFragment extends Fragment {
     private static class DataStoreAsyncTask extends AsyncTask<Void, Void, Integer> {
         private WeakReference<Activity> weakActivity;
         private StudyTimeDataBase db;
-        private TextView textView;
+        //private TextView textView;
         private StringBuilder sb;
         //String s;
         long s;
         long times;
         long i;
 
-        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity, TextView textView,long s) {
+        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity,long s) {
             this.db = db;
             weakActivity = new WeakReference<>(activity);
-            this.textView = textView;
+            //this.textView = textView;
             this.s=s;
 
 
@@ -347,7 +346,7 @@ public class TimeFragment extends Fragment {
             ;
 
 
-            textView.setText(String.format(Locale.US, "%1$02d:%2$02d.%3$01d", mm, ss, ms));
+            //textView.setText(String.format(Locale.US, "%1$02d:%2$02d.%3$01d", mm, ss, ms));
 
         }
         public long getTimes(){
