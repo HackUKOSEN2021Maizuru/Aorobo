@@ -48,6 +48,8 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     private final List<String> iNames;
     private final List<String> iDate;
     private final List<Integer> id;
+    private final List<String> iPeriod;
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -55,24 +57,28 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         // each data item is just a string in this case
-        //ImageView imageView;
+        //ImageView imageView;schedule_contents
         TextView textView;
         TextView dateView;
+
         TextView idView;
+        TextView periodView;
 
         ViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.schedule_name);
             dateView = v.findViewById(R.id.schedule_limit);
+            periodView = v.findViewById(R.id.schedule_contents);
             //schedule_id
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    ScheduleAdapter(List<String> itemNames, List<String> itemDate,List<Integer>id) {
+    ScheduleAdapter(List<String> itemNames, List<String> itemDate,List<Integer>id,List<String> itemPeriod) {
         this.iNames = itemNames;
         this.iDate = itemDate;
         this.id=id;
+        this.iPeriod=itemPeriod;
     }
 
     // Create new views (invoked by the layout manager)
@@ -95,6 +101,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         // - replace the contents of the view with that element
         holder.textView.setText(iNames.get(position));
         holder.dateView.setText(iDate.get(position));
+        holder.periodView.setText(iPeriod.get(position));
+
+
 
     }
 
