@@ -1,5 +1,6 @@
 package com.example.aorobo.db.schedule;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -29,4 +30,8 @@ public interface ScheduleDBDao {
 
     @Query("DELETE FROM scheduledb")
     public void deleteAll();
+
+    @Query("SELECT * FROM scheduledb ORDER BY start")
+    LiveData<List<ScheduleDB>> sort();
+
 }

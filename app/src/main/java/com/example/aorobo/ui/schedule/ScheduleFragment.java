@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,12 +135,14 @@ public class ScheduleFragment extends Fragment{
         @Override
         protected Integer doInBackground(Void... params) {
             ScheduleDBDao scheduleDBDao = db.ScheduleDBDao();
+            scheduleDBDao.sort();
             //timeDBDao.nukeTable();
 
             List<ScheduleDB> atList = scheduleDBDao.getAll();
             System.out.println("got");
             iName.clear();
             iDate.clear();
+            ids.clear();
             Date date=new Date();
 
             for (ScheduleDB at: atList) {
@@ -158,6 +161,7 @@ public class ScheduleFragment extends Fragment{
                 }else{
                     iDate.add(String.format(Locale.US, "残り%1$02d日", t));
                 }
+                ids.add(at.getId());
                 //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
                 System.out.println(at.getName());
                 System.out.println(at.getStart());
@@ -219,10 +223,11 @@ public class ScheduleFragment extends Fragment{
                     int position = viewHolder.getAdapterPosition();
                     //((ViewAdapter)recyclerView.getAdapter()).removeItem(position);
                     int id = scheduleAdapter.getId(position);
-
+                    System.out.println("start");
                     iName.remove(position);
                     iDate.remove(position);
                     ids.remove(position);
+                    System.out.println("end");
                     ScheduleDBDao scheduleDBDao = db.ScheduleDBDao();
                     //scheduleDBDao.delete((int)id);
                     new DataStoreAsyncTaskDelete(db,activity,(int)id).execute();
