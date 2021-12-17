@@ -295,7 +295,7 @@ public class HomeFragment extends Fragment {
             System.out.println("width"+linearLayout.getWidth());
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(linearLayout.getWidth()/5-50,linearLayout.getWidth()/5-50);
             System.out.println("Time::s::"+times/10/60);
-            for(int i=0;i<Math.min(5,times/10/60/1);i++){
+            for(int i=0;i<Math.min(5,times/10/60/60);i++){
                 ImageView imageViewicon = activity.findViewById(iconlist.get(i));
 
             //MaxHeight(linearLayout.getWidth()/5-50);
