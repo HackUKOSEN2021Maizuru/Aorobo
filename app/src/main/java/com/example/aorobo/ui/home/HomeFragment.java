@@ -236,14 +236,23 @@ public class HomeFragment extends Fragment {
             System.out.println("fafdsaffsfsdf");
             icnt.add("");
             icnt.add("");
-
-            for (ScheduleDB at: sList) {
-                //Map<String,String> data = new HashMap();
-                //data.put("name",at.getName());
+            List<ScheduleDB> sList2=new ArrayList<ScheduleDB>();
+            int x=0,y=0;
+            for (ScheduleDB at: sList){
                 if(at.getEnd().getTime()+24*60*60*1000<date.getTime()){
                     scheduleDBDao.delete(at.getId());
+                    y++;
                     continue;
                 }
+                else if(at.getStart().getTime()<date.getTime()){
+                    sList2.add(at);
+                    x++;
+                }
+
+            }
+            sList2.sort(Comparator.comparing(ScheduleDB::getEnd));
+            for(int i=0;i<x;i++){
+                ScheduleDB at=sList2.get(i);
                 String st = new SimpleDateFormat("yyyy.MM.dd").format(at.getStart());
                 String en = new SimpleDateFormat("yyyy.MM.dd").format(at.getEnd());
 
@@ -269,10 +278,31 @@ public class HomeFragment extends Fragment {
 
             }
 
+            sList2.sort(Comparator.comparing(ScheduleDB::getEnd));
+            for(int i=x+y;i<sList.size();i++){
+                ScheduleDB at=sList.get(i);
+                String st = new SimpleDateFormat("yyyy.MM.dd").format(at.getStart());
+                String en = new SimpleDateFormat("yyyy.MM.dd").format(at.getEnd());
 
+                //iPeriod.add(String.format(Locale.US, "%1$04d.%2$02d.%3$02d~%4$04d.%5$02d.%6$02d", at.getStart().getYear(),at.getStart().getMonth(),at.getStart().getDay(),at.getEnd().getYear(),at.getEnd().getMonth(),at.getEnd().getDay()));
 
+                iPeriod.add(st+"~"+en);
+                long t=(at.getStart().getTime()-date.getTime())/1000/60/60/24;
+                iName.add(at.getName());
+                if(at.getEnd().getTime()<date.getTime()){
+                    iDate.add("TODAY!");
+                }else{
+                    iDate.add(String.format(Locale.US, "%1$02d日後", t));
+                }
 
+                //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
 
+                System.out.println(at.getName());
+                System.out.println(at.getStart());
+                System.out.println(at.getEnd());
+                System.out.println(date);
+                System.out.println((at.getEnd().getTime()-date.getTime())/1000/60/60/24);
+            }
             return 0;
         }
 
