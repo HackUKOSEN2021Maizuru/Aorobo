@@ -72,10 +72,10 @@ public class TodayFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-        //loadImage(Glide.with(this), R.drawable.loading, getActivity().findViewById(R.id.gifStartView));
+        loadImage(Glide.with(this), R.raw.colob_roll, getActivity().findViewById(R.id.today_gif));
     }
     static void loadImage(RequestManager glide, int url, ImageView view) {
-        //glide.load(url).into(view);
+        glide.load(url).into(view);
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
