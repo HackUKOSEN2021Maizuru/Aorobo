@@ -3,6 +3,7 @@ package com.example.aorobo.ui.schedule;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -40,6 +42,7 @@ import com.example.aorobo.ui.home.HomeAdapter;
 import com.example.aorobo.ui.slideshow.SlideshowViewModel;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -124,6 +127,7 @@ public class ScheduleFragment extends Fragment{
         static List<String> iName = new ArrayList<String>();
         static List<String> iDate = new ArrayList<String>();
         static List<Integer> ids = new ArrayList<Integer>();
+        static List<String> iPeriod = new ArrayList<String>();
         //static SimpleAdapter adapter;
         public DataStoreAsyncTask(ScheduleDataBase db, Activity activity, RecyclerView recyclerView, Context context) {
             this.db = db;
@@ -133,46 +137,90 @@ public class ScheduleFragment extends Fragment{
             this.context=context;
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected Integer doInBackground(Void... params) {
             ScheduleDBDao scheduleDBDao = db.ScheduleDBDao();
             scheduleDBDao.sort();
             //timeDBDao.nukeTable();
 
-            List<ScheduleDB> atList = scheduleDBDao.getAll();
-            atList.sort(Comparator.comparing(ScheduleDB::getEnd));
+            List<ScheduleDB> sList = scheduleDBDao.getAll();
+            sList.sort(Comparator.comparing(ScheduleDB::getEnd));
             System.out.println("got");
             iName.clear();
             iDate.clear();
             ids.clear();
             Date date=new Date();
 
-            for (ScheduleDB at: atList) {
-                //Map<String,String> data = new HashMap();
-                //data.put("name",at.getName());
-
+            List<ScheduleDB> sList2=new ArrayList<ScheduleDB>();
+            int x=0,y=0;
+            for (ScheduleDB at: sList){
                 if(at.getEnd().getTime()+24*60*60*1000<date.getTime()){
                     scheduleDBDao.delete(at.getId());
+                    y++;
                     continue;
                 }
+                else if(at.getStart().getTime()<date.getTime()){
+                    sList2.add(at);
+                    x++;
+                }
 
-                long t=(at.getEnd().getTime()-date.getTime()+1000*60*60*24)/1000/60/60/24;
+            }
+            sList2.sort(Comparator.comparing(ScheduleDB::getEnd));
+            for(int i=0;i<x;i++){
+                ScheduleDB at=sList2.get(i);
+                String st = new SimpleDateFormat("yyyy.MM.dd").format(at.getStart());
+                String en = new SimpleDateFormat("yyyy.MM.dd").format(at.getEnd());
+
+                //iPeriod.add(String.format(Locale.US, "%1$04d.%2$02d.%3$02d~%4$04d.%5$02d.%6$02d", at.getStart().getYear(),at.getStart().getMonth(),at.getStart().getDay(),at.getEnd().getYear(),at.getEnd().getMonth(),at.getEnd().getDay()));
+
+                iPeriod.add(st+"~"+en);
+                long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24+1;
                 iName.add(at.getName());
+                ids.add(at.getId());
                 if(at.getEnd().getTime()<date.getTime()){
                     iDate.add("TODAY!");
                 }else{
-                    iDate.add(String.format(Locale.US, "残り%1$02d日", t));
+                    iDate.add(String.format(Locale.US, " 残り%1$02d日", t));
                 }
-                ids.add(at.getId());
+
                 //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
+
                 System.out.println(at.getName());
                 System.out.println(at.getStart());
                 System.out.println(at.getEnd());
                 System.out.println(date);
                 System.out.println((at.getEnd().getTime()-date.getTime())/1000/60/60/24);
 
+
             }
-            System.out.println("push");
+
+            sList2.sort(Comparator.comparing(ScheduleDB::getEnd));
+            for(int i=x+y;i<sList.size();i++){
+                ScheduleDB at=sList.get(i);
+                String st = new SimpleDateFormat("yyyy.MM.dd").format(at.getStart());
+                String en = new SimpleDateFormat("yyyy.MM.dd").format(at.getEnd());
+
+                //iPeriod.add(String.format(Locale.US, "%1$04d.%2$02d.%3$02d~%4$04d.%5$02d.%6$02d", at.getStart().getYear(),at.getStart().getMonth(),at.getStart().getDay(),at.getEnd().getYear(),at.getEnd().getMonth(),at.getEnd().getDay()));
+
+                iPeriod.add(st+"~"+en);
+                long t=(at.getStart().getTime()-date.getTime())/1000/60/60/24;
+                iName.add(at.getName());
+                ids.add(at.getId());
+                if(at.getStart().getTime()<date.getTime()){
+                    iDate.add("TODAY!");
+                }else{
+                    iDate.add(String.format(Locale.US, " %1$02d日後", t));
+                }
+
+                //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
+
+                System.out.println(at.getName());
+                System.out.println(at.getStart());
+                System.out.println(at.getEnd());
+                System.out.println(date);
+                System.out.println((at.getEnd().getTime()-date.getTime())/1000/60/60/24);
+            }
 
 
 
@@ -190,7 +238,7 @@ public class ScheduleFragment extends Fragment{
 
 
             System.out.println("b");
-            scheduleAdapter = new ScheduleAdapter(iName,iDate,ids);
+            scheduleAdapter = new ScheduleAdapter(iName,iDate,ids,iPeriod);
             //scheduleAdapter.setHasStableIds(true);
             recyclerView.setAdapter(scheduleAdapter);
             listsSwipe();
@@ -202,11 +250,9 @@ public class ScheduleFragment extends Fragment{
                     new String [] {"name", "time"},
                     new int[] {R.id.schedule_name, R.id.schedule_limit}
             );
-
             adapter.notifyDataSetChanged();
             listView.setAdapter(adapter);
             System.out.println("c");
-
              */
 
 
@@ -229,6 +275,7 @@ public class ScheduleFragment extends Fragment{
                     iName.remove(position);
                     iDate.remove(position);
                     ids.remove(position);
+                    iPeriod.remove(position);
                     System.out.println("end");
                     ScheduleDBDao scheduleDBDao = db.ScheduleDBDao();
                     //scheduleDBDao.delete((int)id);
