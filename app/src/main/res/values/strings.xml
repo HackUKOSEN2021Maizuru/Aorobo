@@ -52,4 +52,5 @@
     <string name="scale_h">10</string>
     <string name="scale_v">10</string>
     <string name="chart">チャート</string>
+    <string name="studychart">一週間の勉強の記録</string>
 </resources>
