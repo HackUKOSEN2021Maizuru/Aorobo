@@ -68,6 +68,9 @@ public class ChartFragment extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        new DataStoreAsyncTask(getActivity()).execute();
+        /*
         View v=getActivity().findViewById(R.id.chartdata1);
         System.out.println("get:"+v.getY());
         System.out.println("pivot:"+v.getPivotY());
@@ -75,6 +78,7 @@ public class ChartFragment extends Fragment {
         v.setScaleY(2);
         View v2=getActivity().findViewById(R.id.chartdata2);
         v2.setScaleY(1/2);
+        */
 
     }
     private static class DataStoreAsyncTask extends AsyncTask<Void, Void, Integer> {
@@ -85,19 +89,16 @@ public class ChartFragment extends Fragment {
         //String s;
         long s;
         long favorability;
-        long i;
         private FavorabilityDataBase fdb;
         Activity activity;
         RecyclerView recyclerView;
         static List<String> list= new ArrayList<String>();
 
-        public DataStoreAsyncTask(Activity activity,long s,RecyclerView recyclerView) {
+        public DataStoreAsyncTask(Activity activity) {
             // this.db = db;
             weakActivity = new WeakReference<>(activity);
             this.activity=activity;
-            this.recyclerView =recyclerView;
             //this.textView = textView;
-            this.s=s;
             //fdb = FavorabilityDataBaseSingleton.getInstance(null);
             db= StudyTimeDataBaseSingleton.getInstance(null);
 
@@ -116,14 +117,33 @@ public class ChartFragment extends Fragment {
             TimeDBDao timeDBDao = db.TimeDBDao();
 
 
-            i=0;
             System.out.println("get");
             List<TimeDB> atList = timeDBDao.getAll();
             System.out.println("got");
-            int data[]=new int[7];
+            long data[]=new long[7];
             Arrays.fill(data,0);
             for (TimeDB at: atList) {
+                long diff=date.getTime()-at.date.getTime();
+                if(diff/1000/60/60/24<7){
 
+                    data[(int)diff/1000/60/60/24]+=at.time;
+                }
+            }
+
+            List<Integer> chartlist=new ArrayList<Integer>();
+            chartlist.add(R.id.chartdata1);
+            chartlist.add(R.id.chartdata2);
+            chartlist.add(R.id.chartdata3);
+            chartlist.add(R.id.chartdata4);
+            chartlist.add(R.id.chartdata5);
+            chartlist.add(R.id.chartdata6);
+            chartlist.add(R.id.chartdata7);
+            //data[3]=10*60*110;
+
+            for(int i=0;i<7;i++){
+                View v=activity.findViewById(chartlist.get(i));
+                System.out.println("datai:"+data[6-i]);
+                v.setScaleY(data[6-i]/10/60);
             }
 
 
