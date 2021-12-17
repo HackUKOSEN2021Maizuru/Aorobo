@@ -98,13 +98,9 @@ public class TalkFragment extends Fragment{
             ImageView coloboView = activity.findViewById(R.id.gifView);
             coloboView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Runnable runnable = new Runnable() {
-                        public void run() {
-                            loadImage(Glide.with(activity), R.raw.colob_roll, activity.findViewById(R.id.gifView));
-                        }
-                    };
+
                     loadImage(Glide.with(activity), R.raw.colob_jump, activity.findViewById(R.id.gifView));
-                    mHandler.postDelayed(runnable, 3000);
+
 
                 }
             });
