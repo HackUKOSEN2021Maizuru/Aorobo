@@ -55,8 +55,7 @@ public class TalkFragment extends Fragment{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Glide.with(getActivity()).onDestroy();
-        Glide.with(getActivity()).clear(getView());
+
         binding = null;
 
     }
@@ -95,15 +94,7 @@ public class TalkFragment extends Fragment{
             }
             TextView favorabilityText=activity.findViewById(R.id.textViewFav);
             favorabilityText.setText(String.format(Locale.US, "%1$03d",favorability));
-            ImageView coloboView = activity.findViewById(R.id.gifView);
-            coloboView.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
 
-                    loadImage(Glide.with(activity), R.raw.colob_jump, activity.findViewById(R.id.gifView));
-
-
-                }
-            });
             return 0;
         }
     }
