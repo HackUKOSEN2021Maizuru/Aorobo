@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarMain.toolbar);
 
         DrawerLayout drawer = binding.drawerLayout;
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         NavigationView navigationView = binding.navView;
         //setContentView(R.id.drawer_layout);
         // Passing each menu ID as a set of Ids because each
