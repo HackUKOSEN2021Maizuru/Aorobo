@@ -38,7 +38,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:gravity="center_horizontal"
-                android:orientation="vertical" />
+                android:orientation="vertical" >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/today_schedule_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp" />
+            </LinearLayout>
         </ScrollView>
 
         <TextView

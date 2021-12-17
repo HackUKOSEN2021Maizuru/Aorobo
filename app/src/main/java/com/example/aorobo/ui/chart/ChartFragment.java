@@ -51,6 +51,13 @@ public class ChartFragment extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        View v=getActivity().findViewById(R.id.chartdata1);
+        System.out.println("get:"+v.getY());
+        System.out.println("pivot:"+v.getPivotY());
+        System.out.println("scale:"+v.getScaleY());
+        v.setScaleY(2);
+        View v2=getActivity().findViewById(R.id.chartdata2);
+        v2.setScaleY(1/2);
 
     }
 

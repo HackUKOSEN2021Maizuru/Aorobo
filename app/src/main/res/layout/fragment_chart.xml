@@ -44,7 +44,7 @@
         <View
             android:id="@+id/chartdata1"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="1dp"
             android:layout_weight="1"
             android:background="#91B6E4" />
 
@@ -57,7 +57,7 @@
         <View
             android:id="@+id/chartdata2"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="1dp"
             android:layout_weight="1"
             android:background="#91B6E4" />
 
@@ -70,7 +70,7 @@
         <View
             android:id="@+id/chartdata3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:layout_weight="1"
             android:background="#91B6E4" />
 
@@ -83,7 +83,7 @@
         <View
             android:id="@+id/chartdata4"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:layout_weight="1"
             android:background="#91B6E4" />
 
@@ -96,7 +96,7 @@
         <View
             android:id="@+id/chartdata5"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:layout_weight="1"
             android:background="#91B6E4" />
 
@@ -109,7 +109,7 @@
         <View
             android:id="@+id/chartdata6"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:layout_weight="1"
             android:background="#91B6E4" />
 
@@ -122,7 +122,7 @@
         <View
             android:id="@+id/chartdata7"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:layout_weight="1"
             android:background="#91B6E4" />
 
