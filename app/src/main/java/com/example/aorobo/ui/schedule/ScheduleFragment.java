@@ -185,7 +185,7 @@ public class ScheduleFragment extends Fragment{
                 if(at.getEnd().getTime()<date.getTime()){
                     iDate.add("TODAY!");
                 }else{
-                    iDate.add(String.format(Locale.US, "残り%1$02d日", t));
+                    iDate.add(String.format(Locale.US, " 残り%1$02d日", t));
                 }
 
                 //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
@@ -214,7 +214,7 @@ public class ScheduleFragment extends Fragment{
                 if(at.getStart().getTime()<date.getTime()){
                     iDate.add("TODAY!");
                 }else{
-                    iDate.add(String.format(Locale.US, "%1$02d日後", t));
+                    iDate.add(String.format(Locale.US, " %1$02d日後", t));
                 }
 
                 //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
