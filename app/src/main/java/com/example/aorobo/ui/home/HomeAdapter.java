@@ -63,6 +63,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
+
         holder.textView.setText(iNames.get(position));
         //holder.textView.setTextColor(
         holder.dateView.setText(iDate.get(position));
