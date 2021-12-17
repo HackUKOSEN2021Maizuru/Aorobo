@@ -60,8 +60,7 @@
             <ImageView
                 android:id="@+id/loading_gif"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/bluetooth_setting" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>

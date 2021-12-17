@@ -23,7 +23,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="405dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#91B6E4" />
+            android:background="#FFD28F" />
 
         <View
             android:id="@+id/view49"
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#91B6E4" />
+            android:background="#FFD28F" />
 
         <View
             android:id="@+id/view46"
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#91B6E4" />
+            android:background="#FFD28F" />
 
         <View
             android:id="@+id/view26"
@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#91B6E4" />
+            android:background="#FFD28F" />
 
         <View
             android:id="@+id/view36"
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#91B6E4" />
+            android:background="#FFD28F" />
 
         <View
             android:id="@+id/view39"
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#91B6E4" />
+            android:background="#FFD28F" />
 
         <View
             android:id="@+id/view35"
@@ -124,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="1dp"
             android:layout_weight="1"
-            android:background="#91B6E4" />
+            android:background="#FFD28F" />
 
         <View
             android:id="@+id/view31"
@@ -261,6 +261,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="470dp"
+        android:gravity="bottom"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
