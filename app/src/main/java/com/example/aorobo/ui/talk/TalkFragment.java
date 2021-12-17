@@ -27,9 +27,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentTalkBinding;
+import com.example.aorobo.db.FavorabilityDataBase;
+import com.example.aorobo.db.FavorabilityDataBaseSingleton;
 import com.example.aorobo.db.ScheduleDataBase;
 import com.example.aorobo.db.ScheduleDataBaseSingleton;
 import com.example.aorobo.db.StudyTimeDataBase;
+import com.example.aorobo.db.favorability.Favorability;
+import com.example.aorobo.db.favorability.FavorabilityDao;
 import com.example.aorobo.db.schedule.ScheduleDB;
 import com.example.aorobo.db.schedule.ScheduleDBDao;
 import com.example.aorobo.db.time.TimeDB;
@@ -45,6 +49,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 public class TalkFragment extends Fragment{
 
@@ -95,35 +100,20 @@ public class TalkFragment extends Fragment{
     private static class DataStoreAsyncTask extends AsyncTask<Void, Void, Integer> {
         private WeakReference<Activity> weakActivity;
         private StudyTimeDataBase db;
-        private ScheduleDataBase sdb;
-        private TextView textView;
+        //private TextView textView;
         private StringBuilder sb;
         //String s;
         long s;
         long times;
         long i;
-        RecyclerView recyclerView;
-        RecyclerView recyclerViewIcon;
+        private FavorabilityDataBase fdb;
 
-        ListView listView;
-        Context context;
-        static Activity activity;
-
-        static List<String> iName = new ArrayList<String>();
-        static List<String> iDate = new ArrayList<String>();
-        static List<String> icnt = new ArrayList<String>();
-        static SimpleAdapter adapter;
-
-
-        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity, TextView textView,long s,ScheduleDataBase sdb,RecyclerView recyclerView,Context context) {
+        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity,long s) {
             this.db = db;
             weakActivity = new WeakReference<>(activity);
-            this.textView = textView;
+            //this.textView = textView;
             this.s=s;
-            this.sdb=sdb;
-            this.recyclerView=recyclerView;
-            this.context=context;
-            this.activity=activity;
+            fdb = FavorabilityDataBaseSingleton.getInstance(null);
 
 
         }
@@ -131,13 +121,35 @@ public class TalkFragment extends Fragment{
         @Override
         protected Integer doInBackground(Void... params) {
             TimeDBDao timeDBDao = db.TimeDBDao();
-            ScheduleDBDao scheduleDBDao = sdb.ScheduleDBDao();
+            FavorabilityDao favorabilityDao=fdb.FavorabilityDao();
             //timeDBDao.nukeTable();
             Date date =new Date();
             System.out.println("date");
             System.out.println(date);
             //date = new Date(date.getYear(),date.getMonth(),date.getDay());
             System.out.println(date);
+            if(s>0){
+
+                timeDBDao.insert(new TimeDB(s,date));
+                long min=s/10000/60;
+                Random rand = new Random();
+                long fav=0;
+                if(min>=20){
+                    fav=min/6+ rand.nextInt(5)-2;
+                }else{
+                    int f=rand.nextInt(5);
+                    if(f==0){
+                        fav=rand.nextInt(6)-10;
+                    }else{
+                        fav=min/6+ rand.nextInt(5)-2;
+                    }
+                }
+                favorabilityDao.insert(new Favorability(fav,date));
+
+            }
+
+
+
             System.out.println("今回の勉強時間");
             System.out.println(s);
             sb = new StringBuilder();
@@ -150,72 +162,21 @@ public class TalkFragment extends Fragment{
             System.out.println("got");
             for (TimeDB at: atList) {
                 System.out.println(i);
-                System.out.println("compair");
-                System.out.println(at.getdate());
-                System.out.println(date);
-                if(at.getdate().getYear()==date.getYear()&&at.getdate().getDay()==date.getDay()&&at.getdate().getMonth()==date.getMonth()){
-                    times+=at.gettime();
-                }
+
+                times+=at.gettime();
                 System.out.println(at.getId());
                 System.out.println(at.gettime());
 
 
+
                 i++;
             }
-            List<ScheduleDB> sList = scheduleDBDao.getAll();
-            System.out.println("got");
-            iName.clear();
-            iDate.clear();
-            icnt.clear();
-            date=new Date();
-            System.out.println("fafdsaffsfsdf");
-            icnt.add("");
-            icnt.add("");
-
-            for (ScheduleDB at: sList) {
-                //Map<String,String> data = new HashMap();
-                //data.put("name",at.getName());
-                long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
-                iName.add(at.getName());
-                iDate.add(String.format(Locale.US, "残り%1$02d日", t));
-                //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
-
-                System.out.println(at.getName());
-                System.out.println(at.getStart());
-                System.out.println(at.getEnd());
-                System.out.println(date);
-                System.out.println((at.getEnd().getTime()-date.getTime())/1000/60/60/24);
-
-
-            }
-
+            System.out.println(i);
 
 
 
 
             return 0;
-        }
-
-        @Override
-        protected void onPostExecute(Integer code) {
-            Activity activity = weakActivity.get();
-            if(activity == null) {
-                return;
-            }
-            long mm = times*100 / 1000 / 60/60;
-            long ss = (times*100 / 1000 / 60)%60;
-            long ms = (times*100 / 1000) % 60;
-
-            textView.setText(String.format(Locale.US, "%1$02d:%2$02d", mm, ss));
-
-
-            System.out.println("c");
-
-        }
-        public long getTimes(){
-            System.out.println("ans:");
-            System.out.println(times);
-            return times;
         }
     }
 }
