@@ -150,7 +150,7 @@
         <TextView
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="20dp"
             android:layout_weight="1" />
 
         <TextView
@@ -158,49 +158,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/scale_h" />
+            android:text="@string/scale_h"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/scale2_h"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
-            android:text="@string/scale_h" />
+            android:text="@string/scale_h"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/scale3_h"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
-            android:text="@string/scale_h" />
+            android:text="@string/scale_h"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/scale4_h"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
-            android:text="@string/scale_h" />
+            android:text="@string/scale_h"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/scale5_h"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.1"
-            android:text="@string/scale_h" />
+            android:text="@string/scale_h"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/scale6_h"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/scale_h" />
+            android:text="@string/scale_h"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/scale7_h"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/scale_h" />
+            android:layout_weight="1.1"
+            android:text="@string/scale_h"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
