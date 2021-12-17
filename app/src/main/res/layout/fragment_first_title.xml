@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.first.FirstTitle">
+    tools:context="colob.example.aorobo.ui.first.FirstTitle">
 
     <ImageButton
         android:id="@+id/app_start_button"

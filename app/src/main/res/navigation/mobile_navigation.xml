@@ -10,19 +10,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.aorobo.ui.home.HomeFragment"
+        android:name="colob.example.aorobo.ui.home.HomeFragment"
         android:label=""
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.aorobo.ui.time.TimeFragment"
+        android:name="colob.example.aorobo.ui.time.TimeFragment"
         android:label=""
         tools:layout="@layout/fragment_time" />
 
     <fragment
         android:id="@+id/nav_startpage"
-        android:name="com.example.aorobo.ui.gallery.GalleryFragment"
+        android:name="colob.example.aorobo.ui.gallery.GalleryFragment"
         android:label=""
         tools:layout="@layout/fragment_gallery" >
         <action
@@ -33,12 +33,12 @@
 
     <fragment
         android:id="@+id/nav_talk"
-        android:name="com.example.aorobo.ui.talk.TalkFragment"
+        android:name="colob.example.aorobo.ui.talk.TalkFragment"
         android:label=""
         tools:layout="@layout/fragment_talk" />
     <fragment
         android:id="@+id/nav_bluetooth"
-        android:name="com.example.aorobo.ui.bluetooth.BluetoothFragment"
+        android:name="colob.example.aorobo.ui.bluetooth.BluetoothFragment"
         android:label=""
         tools:layout="@layout/fragment_bluetooth">
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_bluetooth_connected"
-        android:name="com.example.aorobo.ui.bluetooth.BluetoothFragment"
+        android:name="colob.example.aorobo.ui.bluetooth.BluetoothFragment"
         android:label=""
         tools:layout="@layout/fragment_bluetooth_connected">
         <action
@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/nav_schedule"
-        android:name="com.example.aorobo.ui.schedule.ScheduleFragment"
+        android:name="colob.example.aorobo.ui.schedule.ScheduleFragment"
         android:label=""
         tools:layout="@layout/fragment_schedule" >
         <action
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_make_schedule"
-        android:name="com.example.aorobo.ui.schedule.MakeScheduleFragment"
+        android:name="colob.example.aorobo.ui.schedule.MakeScheduleFragment"
         android:label=""
         tools:layout="@layout/fragment_schedule">
         <action
@@ -76,7 +76,7 @@
 
     <fragment
         android:id="@+id/nav_today"
-        android:name="com.example.aorobo.ui.today.TodayFragment"
+        android:name="colob.example.aorobo.ui.today.TodayFragment"
         android:layout="@layout/fragment_today"
         android:label="">
         <action
@@ -86,12 +86,12 @@
 
     <fragment
         android:id="@+id/nav_first_title"
-        android:name="com.example.aorobo.ui.first.FirstTitle"
+        android:name="colob.example.aorobo.ui.first.FirstTitle"
         android:label=""
         tools:layout="@layout/fragment_first_title" />
     <fragment
         android:id="@+id/nav_chart"
-        android:name="com.example.aorobo.ui.chart.ChartFragment"
+        android:name="colob.example.aorobo.ui.chart.ChartFragment"
         android:label=""
         tools:layout="@layout/fragment_chart" />
 </navigation>
