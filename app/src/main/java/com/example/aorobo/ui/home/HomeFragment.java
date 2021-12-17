@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -184,6 +186,7 @@ public class HomeFragment extends Fragment {
 
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected Integer doInBackground(Void... params) {
             TimeDBDao timeDBDao = db.TimeDBDao();
@@ -229,14 +232,23 @@ public class HomeFragment extends Fragment {
             System.out.println("fafdsaffsfsdf");
             icnt.add("");
             icnt.add("");
-
-            for (ScheduleDB at: sList) {
-                //Map<String,String> data = new HashMap();
-                //data.put("name",at.getName());
+            List<ScheduleDB> sList2=new ArrayList<ScheduleDB>();
+            int x=0,y=0;
+            for (ScheduleDB at: sList){
                 if(at.getEnd().getTime()+24*60*60*1000<date.getTime()){
                     scheduleDBDao.delete(at.getId());
+                    y++;
                     continue;
                 }
+                else if(at.getStart().getTime()<date.getTime()){
+                    sList2.add(at);
+                    x++;
+                }
+
+            }
+            sList2.sort(Comparator.comparing(ScheduleDB::getEnd));
+            for(int i=0;i<x;i++){
+                ScheduleDB at=sList2.get(i);
                 String st = new SimpleDateFormat("yyyy.MM.dd").format(at.getStart());
                 String en = new SimpleDateFormat("yyyy.MM.dd").format(at.getEnd());
 
@@ -248,7 +260,7 @@ public class HomeFragment extends Fragment {
                 if(at.getEnd().getTime()<date.getTime()){
                     iDate.add("TODAY!");
                 }else{
-                    iDate.add(String.format(Locale.US, "残り%1$02d日", t));
+                    iDate.add(String.format(Locale.US, " 残り%1$02d日", t));
                 }
 
                 //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
@@ -262,10 +274,31 @@ public class HomeFragment extends Fragment {
 
             }
 
+            sList2.sort(Comparator.comparing(ScheduleDB::getEnd));
+            for(int i=x+y;i<sList.size();i++){
+                ScheduleDB at=sList.get(i);
+                String st = new SimpleDateFormat("yyyy.MM.dd").format(at.getStart());
+                String en = new SimpleDateFormat("yyyy.MM.dd").format(at.getEnd());
 
+                //iPeriod.add(String.format(Locale.US, "%1$04d.%2$02d.%3$02d~%4$04d.%5$02d.%6$02d", at.getStart().getYear(),at.getStart().getMonth(),at.getStart().getDay(),at.getEnd().getYear(),at.getEnd().getMonth(),at.getEnd().getDay()));
 
+                iPeriod.add(st+"~"+en);
+                long t=(at.getStart().getTime()-date.getTime())/1000/60/60/24;
+                iName.add(at.getName());
+                if(at.getEnd().getTime()<date.getTime()){
+                    iDate.add("TODAY!");
+                }else{
+                    iDate.add(String.format(Locale.US, " %1$02d日後", t));
+                }
 
+                //data.put("time",String.format(Locale.US, "残り%1$02d日", t));
 
+                System.out.println(at.getName());
+                System.out.println(at.getStart());
+                System.out.println(at.getEnd());
+                System.out.println(date);
+                System.out.println((at.getEnd().getTime()-date.getTime())/1000/60/60/24);
+            }
             return 0;
         }
 
@@ -295,10 +328,10 @@ public class HomeFragment extends Fragment {
             System.out.println("width"+linearLayout.getWidth());
             ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(linearLayout.getWidth()/5-50,linearLayout.getWidth()/5-50);
             System.out.println("Time::s::"+times/10/60);
-            for(int i=0;i<Math.min(5,times/10/60/1);i++){
+            for(int i=0;i<Math.min(5,times/10/60/60);i++){
                 ImageView imageViewicon = activity.findViewById(iconlist.get(i));
 
-            //MaxHeight(linearLayout.getWidth()/5-50);
+                //MaxHeight(linearLayout.getWidth()/5-50);
 
                 imageViewicon.setImageResource(R.drawable.one_colobo);
                 System.out.println("icon"+imageViewicon.getWidth());
@@ -316,7 +349,6 @@ public class HomeFragment extends Fragment {
                     new String [] {"name", "time"},
                     new int[] {R.id.schedule_name_home, R.id.textView5}
             );
-
              */
             //listView=
 
