@@ -64,6 +64,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         // - replace the contents of the view with that element
 
         holder.textView.setText(iNames.get(position));
+        //holder.textView.setTextColor(
         holder.dateView.setText(iDate.get(position));
         holder.periodView.setText(iPeriod.get(position)); }
 
