@@ -138,7 +138,8 @@ public class ChartFragment extends Fragment {
             chartlist.add(R.id.chartdata5);
             chartlist.add(R.id.chartdata6);
             chartlist.add(R.id.chartdata7);
-            //data[3]=10*60*110;
+            //data[3]=10*60*230;
+
 
             for(int i=0;i<7;i++){
                 View v=activity.findViewById(chartlist.get(i));
