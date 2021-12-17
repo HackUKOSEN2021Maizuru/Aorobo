@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +103,7 @@ public class TalkFragment extends Fragment{
         long i;
         private FavorabilityDataBase fdb;
         Activity activity;
+        private Handler mHandler = new Handler();
 
         public DataStoreAsyncTask(Activity activity,long s) {
            // this.db = db;
@@ -151,14 +153,13 @@ public class TalkFragment extends Fragment{
             ImageView coloboView = activity.findViewById(R.id.gifView);
             coloboView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if(favorability<40){
-                        loadImage(Glide.with(activity), R.raw.colob_angry, activity.findViewById(R.id.gifView));
-
-                    }else if(favorability<70){
-                        loadImage(Glide.with(activity), R.raw.colob_jump, activity.findViewById(R.id.gifView));
-                    }else{
-                        loadImage(Glide.with(activity), R.raw.colob_heart, activity.findViewById(R.id.gifView));
-                    }
+                    Runnable runnable = new Runnable() {
+                        public void run() {
+                            loadImage(Glide.with(activity), R.raw.colob_roll, activity.findViewById(R.id.gifView));
+                        }
+                    };
+                    loadImage(Glide.with(activity), R.raw.colob_jump, activity.findViewById(R.id.gifView));
+                    mHandler.postDelayed(runnable, 3000);
 
                 }
             });
