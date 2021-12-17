@@ -156,7 +156,7 @@ public class ScheduleFragment extends Fragment{
                     continue;
                 }
 
-                long t=(at.getEnd().getTime()-date.getTime())/1000/60/60/24;
+                long t=(at.getEnd().getTime()-date.getTime()+1000*60*60*24)/1000/60/60/24;
                 iName.add(at.getName());
                 if(at.getEnd().getTime()<date.getTime()){
                     iDate.add("TODAY!");
