@@ -62,11 +62,9 @@ public class BluetoothFragment extends Fragment {
             System.out.print("->");
             System.out.println(newState);
             if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                connect_gatt(true);
+                dc_gatt();
             }
             else if(newState == BluetoothProfile.STATE_CONNECTED){
-                statustxt.setText("ころボに接続済みです！");
-                scanButton.setText("ころボから切断");
                 GattSingleton.getInstance(context).discoverServices();
             }
         }
@@ -103,7 +101,7 @@ public class BluetoothFragment extends Fragment {
     private ScanSettings buildScanSettings(){
         System.out.println("setting");
         ScanSettings.Builder builder = new ScanSettings.Builder();
-        builder.setScanMode(ScanSettings.SCAN_MODE_BALANCED);
+        builder.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
         return builder.build();
     }
     private ScanCallback callback =new ScanCallback(){
@@ -114,9 +112,7 @@ public class BluetoothFragment extends Fragment {
             blescanner=null;
             if(callbackType == ScanSettings.CALLBACK_TYPE_ALL_MATCHES){
                 device=result.getDevice();
-                connect_gatt(false);
-                //System.out.println(GattSingleton.getInstance(context).getServices());
-                //System.out.println("debug");
+                connect_gatt();
             }
         }
 
@@ -129,25 +125,23 @@ public class BluetoothFragment extends Fragment {
 
     };
 
-    private void connect_gatt(boolean dc){
-        if(dc){
-            GattSingleton.getInstance(context).close();
-            GattSingleton.setGatt(null);
-        }
-        else {
+    private void connect_gatt(){
             context = getActivity();
             GattSingleton.setGatt(device.connectGatt(context, false, gattcallback, BluetoothDevice.TRANSPORT_LE));
-        }
+            statustxt.setText("ころボに接続済みです！");
+            scanButton.setText("ころボから切断");
+    }
+    private void dc_gatt(){
+            GattSingleton.getInstance(context).close();
+            GattSingleton.setGatt(null);
     }
 
-    @Override
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentBluetoothBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        //BLEセットアップ
-
         return root;
     }
 
@@ -188,7 +182,7 @@ public class BluetoothFragment extends Fragment {
                     }
                 }
                 else{
-                    connect_gatt(true);
+                    dc_gatt();
                     statustxt.setText(R.string.bluetooth_setting);
                     scanButton.setText("ころボを探す");
                 }
@@ -197,16 +191,19 @@ public class BluetoothFragment extends Fragment {
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-        //System.out.println(GattSingleton.getInstance(context).getServices());
-        //System.out.println("debug2");
+    public void onStop(){
+        super.onStop();
         if(blescanner!=null) {
             blescanner.stopScan(callback);
             blescanner=null;
         }
+        scanButton.setOnClickListener(null);
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
 
+        binding = null;
     }
 
 }
