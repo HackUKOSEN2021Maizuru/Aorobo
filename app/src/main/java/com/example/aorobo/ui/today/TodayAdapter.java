@@ -55,7 +55,7 @@ public class TodayAdapter  extends RecyclerView.Adapter<TodayAdapter.ViewHolder>
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-
+        System.out.println("fsa");
         holder.textView.setText(iNames.get(position));
         //holder.textView.setTextColor(
         }
