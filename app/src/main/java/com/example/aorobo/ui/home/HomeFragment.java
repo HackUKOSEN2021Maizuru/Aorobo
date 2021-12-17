@@ -40,6 +40,7 @@ import com.example.aorobo.ui.time.TimeFragment;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -218,6 +219,7 @@ public class HomeFragment extends Fragment {
                 i++;
             }
             List<ScheduleDB> sList = scheduleDBDao.getAll();
+            sList.sort(Comparator.comparing(ScheduleDB::getStart));
             System.out.println("got");
             iName.clear();
             iDate.clear();

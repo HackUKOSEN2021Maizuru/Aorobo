@@ -41,6 +41,7 @@ import com.example.aorobo.ui.slideshow.SlideshowViewModel;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -139,6 +140,7 @@ public class ScheduleFragment extends Fragment{
             //timeDBDao.nukeTable();
 
             List<ScheduleDB> atList = scheduleDBDao.getAll();
+            atList.sort(Comparator.comparing(ScheduleDB::getEnd));
             System.out.println("got");
             iName.clear();
             iDate.clear();
