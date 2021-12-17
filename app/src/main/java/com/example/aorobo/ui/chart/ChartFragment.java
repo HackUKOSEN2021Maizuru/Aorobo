@@ -41,7 +41,6 @@ public class ChartFragment extends Fragment {
         binding = FragmentChartBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
         return root;
     }
 
