@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentScheduleBinding;
 import com.example.aorobo.db.ScheduleDataBase;
@@ -67,12 +68,9 @@ public class ScheduleFragment extends Fragment{
         return root;
     }
 
-
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        //listView=getActivity().findViewById(R.id.shedule_list);
-
+    public void onResume() {
+        super.onResume();
         db = ScheduleDataBaseSingleton.getInstance(null);
         //getActivity().getSu
 
@@ -80,21 +78,30 @@ public class ScheduleFragment extends Fragment{
         recyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(view.getContext());
+        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getView().getContext());
 
         recyclerView.setLayoutManager(rLayoutManager);
 
-        new DataStoreAsyncTask(db, getActivity(),recyclerView,view.getContext()).execute();
+        new DataStoreAsyncTask(db, getActivity(),recyclerView,getView().getContext()).execute();
 
 
 
-        Button button02 = view.findViewById(R.id.add_button);
+        Button button02 = getView().findViewById(R.id.add_button);
         button02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_first_to_second);
             }
         });
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //listView=getActivity().findViewById(R.id.shedule_list);
+
+
 
 
     }

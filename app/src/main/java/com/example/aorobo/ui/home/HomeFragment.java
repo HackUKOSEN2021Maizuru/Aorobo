@@ -19,12 +19,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentHomeBinding;
 import com.example.aorobo.db.ScheduleDataBase;
@@ -78,9 +80,9 @@ public class HomeFragment extends Fragment {
          */
         return root;
     }
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
+    @Override
+    public void onResume() {
+        super.onResume();
         db = StudyTimeDataBaseSingleton.getInstance(null);
 
         Bundle args = getArguments();
@@ -102,15 +104,15 @@ public class HomeFragment extends Fragment {
         recyclerViewIcon.setHasFixedSize(true);
 
         // use a linear layout manager
-        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(view.getContext());
+        RecyclerView.LayoutManager rLayoutManager = new LinearLayoutManager(getView().getContext());
 
         recyclerView.setLayoutManager(rLayoutManager);
 
-        RecyclerView.LayoutManager riconLayoutManager = new LinearLayoutManager(view.getContext());
+        RecyclerView.LayoutManager riconLayoutManager = new LinearLayoutManager(getView().getContext());
 
         recyclerViewIcon.setLayoutManager(riconLayoutManager);
 
-        new DataStoreAsyncTask(db, getActivity(), timeText,0,sdb,recyclerView,view.getContext()).execute();
+        new DataStoreAsyncTask(db, getActivity(), timeText,0,sdb,recyclerView,getView().getContext()).execute();
 
 
         BluetoothAdapter mBluetoothAdapter;
@@ -122,6 +124,11 @@ public class HomeFragment extends Fragment {
         }else{
             System.out.println("yes bluetooth!!");
         }
+    }
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
 
 
         // BackStackで１つ戻す
