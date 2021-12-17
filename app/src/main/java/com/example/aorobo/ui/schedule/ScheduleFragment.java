@@ -135,6 +135,7 @@ public class ScheduleFragment extends Fragment{
         @Override
         protected Integer doInBackground(Void... params) {
             ScheduleDBDao scheduleDBDao = db.ScheduleDBDao();
+            scheduleDBDao.sort();
             //timeDBDao.nukeTable();
 
             List<ScheduleDB> atList = scheduleDBDao.getAll();

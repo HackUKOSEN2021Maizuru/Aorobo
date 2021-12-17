@@ -185,6 +185,7 @@ public class MakeScheduleFragment extends Fragment implements DatePickerDialog.O
             //timeDBDao.nukeTable();
 
             scheduleDBDao.insert(new ScheduleDB(scheduleName,startDay,endDay));
+            scheduleDBDao.sort();
 
 
 
