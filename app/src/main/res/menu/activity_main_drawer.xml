@@ -20,21 +20,12 @@
 
         <item
             android:id="@+id/nav_talk"
-            android:icon="@drawable/i_chat"
+            android:icon="@drawable/colobo_studygraph"
             android:title="@string/menu_talk" />
         <item
             android:id="@+id/nav_chart"
-            android:icon="@drawable/colobo_studygraph"
+            android:icon="@drawable/charticon"
             android:title="@string/chart" />
-        <item
-            android:id="@+id/nav_bluetooth"
-            android:icon="@drawable/colobo_studygraph"
-            android:title="@string/menu_bluetooth" />
-
-        <item
-            android:id="@+id/nav_startpage"
-            android:icon="@drawable/ic_baseline_calendar_today_24"
-            android:title="@string/menu_title" />
 
     </group>
 </menu>
