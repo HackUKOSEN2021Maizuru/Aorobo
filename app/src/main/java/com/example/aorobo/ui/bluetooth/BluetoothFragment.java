@@ -22,6 +22,9 @@ import java.util.HashSet;
 import java.util.UUID;
 
 import android.content.Context;
+
+import android.widget.Button;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -30,6 +33,7 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothProfile;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattService;
+
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanSettings;
 import android.bluetooth.le.ScanCallback;
@@ -47,6 +51,9 @@ public class BluetoothFragment extends Fragment {
     private BluetoothLeScanner blescanner;
     private BluetoothDevice device;
     private BluetoothGattCharacteristic favo;
+    private Button scanButton;
+    private TextView statustxt;
+
     private BluetoothGattCallback gattcallback = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
@@ -55,10 +62,11 @@ public class BluetoothFragment extends Fragment {
             System.out.print("->");
             System.out.println(newState);
             if (newState == BluetoothProfile.STATE_DISCONNECTED) {
-                GattSingleton.getInstance(context).close();
-                GattSingleton.setGatt(null);
+                connect_gatt(true);
             }
             else if(newState == BluetoothProfile.STATE_CONNECTED){
+                statustxt.setText("ころボに接続済みです！");
+                scanButton.setText("ころボから切断");
                 GattSingleton.getInstance(context).discoverServices();
             }
         }
@@ -75,14 +83,15 @@ public class BluetoothFragment extends Fragment {
                     continue;
                 }
             }
+            /*
             favo= gatt.getService(UUID.fromString(getResources().getString(R.string.SERVICE_UUID))).getCharacteristic(UUID.fromString(getResources().getString(R.string.favo_Chara_UUID)));
             byte[] write = {60};
             favo.setValue(write);
             gatt.writeCharacteristic(favo);
+            */
         }
 
     } ;
-
     private List<ScanFilter> buildScanFilters(){
         System.out.println("filters");
         List<ScanFilter> scanFilters = new ArrayList<>();
@@ -102,9 +111,10 @@ public class BluetoothFragment extends Fragment {
         public void onScanResult(int callbackType,ScanResult result){
             System.out.println("success");
             blescanner.stopScan(callback);
+            blescanner=null;
             if(callbackType == ScanSettings.CALLBACK_TYPE_ALL_MATCHES){
                 device=result.getDevice();
-                connect_gatt();
+                connect_gatt(false);
                 //System.out.println(GattSingleton.getInstance(context).getServices());
                 //System.out.println("debug");
             }
@@ -119,33 +129,71 @@ public class BluetoothFragment extends Fragment {
 
     };
 
-    private void connect_gatt(){
-        context=getActivity();
-        GattSingleton.setGatt(device.connectGatt(context,false,gattcallback,BluetoothDevice.TRANSPORT_LE));
+    private void connect_gatt(boolean dc){
+        if(dc){
+            GattSingleton.getInstance(context).close();
+            GattSingleton.setGatt(null);
+        }
+        else {
+            context = getActivity();
+            GattSingleton.setGatt(device.connectGatt(context, false, gattcallback, BluetoothDevice.TRANSPORT_LE));
+        }
     }
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentBluetoothBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         //BLEセットアップ
-        bluetoothmanager=(BluetoothManager)getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
-        bluetoothadapter=bluetoothmanager.getAdapter();
 
-        //Bluetoothのon/off確認
-        if(bluetoothadapter == null || !bluetoothadapter.isEnabled()) {
-            System.out.println("bluetooth is not enabled");
-        }
-        else {
-            blescanner = bluetoothadapter.getBluetoothLeScanner();
-            //System.out.println(blescanner.size());
-            //System.out.println(blescanner);
-            if (GattSingleton.getInstance(context) == null) {
-                blescanner.startScan(buildScanFilters(), buildScanSettings(), callback);
-            }
-        }
         return root;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        scanButton=getActivity().findViewById(R.id.button);
+        statustxt=getActivity().findViewById(R.id.bluetooth_status);
+        if(GattSingleton.getInstance(context)!=null){
+            statustxt.setText("ころボに接続済みです！");
+            scanButton.setText("ころボから切断");
+        }
+        scanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bluetoothmanager = (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
+                bluetoothadapter = bluetoothmanager.getAdapter();
+                //Bluetoothのon/off確認
+                if(GattSingleton.getInstance(context)==null) {
+                    if(blescanner==null) {
+                        if (bluetoothadapter == null || !bluetoothadapter.isEnabled()) {
+                            System.out.println("bluetooth is not enabled");
+                            statustxt.setText("接続に失敗しました(´・ω・`)");
+                        } else {
+                            blescanner = bluetoothadapter.getBluetoothLeScanner();
+                            //System.out.println(blescanner.size());
+                            //System.out.println(blescanner);
+                            blescanner.startScan(buildScanFilters(), buildScanSettings(), callback);
+                            statustxt.setText("ころボを探しています！");
+                            scanButton.setText("キャンセル");
+                        }
+                    }
+                    else{
+                        blescanner.stopScan(callback);
+                        blescanner=null;
+                        statustxt.setText(R.string.bluetooth_setting);
+                        scanButton.setText("ころボを探す");
+                    }
+                }
+                else{
+                    connect_gatt(true);
+                    statustxt.setText(R.string.bluetooth_setting);
+                    scanButton.setText("ころボを探す");
+                }
+            }
+        });
     }
 
     @Override
@@ -156,7 +204,9 @@ public class BluetoothFragment extends Fragment {
         //System.out.println("debug2");
         if(blescanner!=null) {
             blescanner.stopScan(callback);
+            blescanner=null;
         }
+
     }
 
 }
