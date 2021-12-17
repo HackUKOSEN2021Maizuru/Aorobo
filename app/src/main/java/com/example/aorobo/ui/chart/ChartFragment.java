@@ -37,10 +37,12 @@ import com.example.aorobo.ui.slideshow.SlideshowViewModel;
 import com.example.aorobo.ui.today.TodayAdapter;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -140,12 +142,39 @@ public class ChartFragment extends Fragment {
             chartlist.add(R.id.chartdata7);
             //data[3]=10*60*230;
 
+            List<Integer> textlist=new ArrayList<Integer>();
+            textlist.add(R.id.scale1_h);
+            textlist.add(R.id.scale2_h);
+            textlist.add(R.id.scale3_h);
+            textlist.add(R.id.scale4_h);
+            textlist.add(R.id.scale5_h);
+            textlist.add(R.id.scale6_h);
+            textlist.add(R.id.scale7_h);
+            List<Integer> vtextlist=new ArrayList<Integer>();
+            vtextlist.add(R.id.scale1_v);
+            vtextlist.add(R.id.scale2_v);
+            vtextlist.add(R.id.scale3_v);
+            vtextlist.add(R.id.scale4_v);
+            vtextlist.add(R.id.scale5_v);
+
+            for(int i=0;i<4;i++){
+                TextView tv=activity.findViewById(vtextlist.get(i));
+                tv.setText(String.format(Locale.US, "%1$02d", 60*(i+1)));
+
+            }
+
 
             for(int i=0;i<7;i++){
                 View v=activity.findViewById(chartlist.get(i));
                 System.out.println("datai:"+data[6-i]);
-                v.setScaleY(data[6-i]/10/60);
+                v.setScaleY(data[6-i]/10/60*2);
+                Date d2=new Date();
+                d2.setTime(date.getTime()-1000*60*60*24*(6-i));
+                TextView tv=activity.findViewById(textlist.get(i));
+                tv.setText(new SimpleDateFormat("MM/dd").format(d2));
+
             }
+            System.out.println("DATE:"+ new SimpleDateFormat("MM.dd").format(date));
 
 
 
