@@ -20,15 +20,15 @@
 
         <item
             android:id="@+id/nav_talk"
-            android:icon="@drawable/i_chat"
+            android:icon="@drawable/colobo_studygraph"
             android:title="@string/menu_talk" />
         <item
             android:id="@+id/nav_chart"
-            android:icon="@drawable/colobo_studygraph"
+            android:icon="@drawable/chart_icon"
             android:title="@string/chart" />
         <item
             android:id="@+id/nav_bluetooth"
-            android:icon="@drawable/colobo_studygraph"
+            android:icon="@drawable/connect_icon"
             android:title="@string/menu_bluetooth" />
 
         <item
