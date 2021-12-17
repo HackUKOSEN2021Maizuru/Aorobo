@@ -76,17 +76,11 @@ public class TalkFragment extends Fragment{
         //listView=getActivity().findViewById(R.id.shedule_list);
 
         ImageView imageView  = getActivity().findViewById(R.id.gifView);
-
+        new DataStoreAsyncTask(getActivity(),0).execute();
         //ImageView matchImage = getActivity().findViewById(R.id.image_view);
-        loadImage(Glide.with(this), R.raw.colob_rolling2, getActivity().findViewById(R.id.gifView));
+        loadImage(Glide.with(this), R.raw.colob_roll, getActivity().findViewById(R.id.gifView));
         //Glide.with(this.getContext()).load(R.raw.colob_roll).into(imageView);
-        imageView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
 
-            }
-
-        });
 
     }
 
@@ -104,13 +98,15 @@ public class TalkFragment extends Fragment{
         private StringBuilder sb;
         //String s;
         long s;
-        long times;
+        long favorability;
         long i;
         private FavorabilityDataBase fdb;
+        Activity activity;
 
-        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity,long s) {
-            this.db = db;
+        public DataStoreAsyncTask(Activity activity,long s) {
+           // this.db = db;
             weakActivity = new WeakReference<>(activity);
+            this.activity=activity;
             //this.textView = textView;
             this.s=s;
             fdb = FavorabilityDataBaseSingleton.getInstance(null);
@@ -120,7 +116,7 @@ public class TalkFragment extends Fragment{
 
         @Override
         protected Integer doInBackground(Void... params) {
-            TimeDBDao timeDBDao = db.TimeDBDao();
+
             FavorabilityDao favorabilityDao=fdb.FavorabilityDao();
             //timeDBDao.nukeTable();
             Date date =new Date();
@@ -128,50 +124,44 @@ public class TalkFragment extends Fragment{
             System.out.println(date);
             //date = new Date(date.getYear(),date.getMonth(),date.getDay());
             System.out.println(date);
-            if(s>0){
-
-                timeDBDao.insert(new TimeDB(s,date));
-                long min=s/10000/60;
-                Random rand = new Random();
-                long fav=0;
-                if(min>=20){
-                    fav=min/6+ rand.nextInt(5)-2;
-                }else{
-                    int f=rand.nextInt(5);
-                    if(f==0){
-                        fav=rand.nextInt(6)-10;
-                    }else{
-                        fav=min/6+ rand.nextInt(5)-2;
-                    }
-                }
-                favorabilityDao.insert(new Favorability(fav,date));
-
-            }
 
 
 
-            System.out.println("今回の勉強時間");
-            System.out.println(s);
-            sb = new StringBuilder();
+            favorability=50;
 
-
-            times=0;
             i=0;
             System.out.println("get");
-            List<TimeDB> atList = timeDBDao.getAll();
+            List<Favorability> atList = favorabilityDao.getAll();
             System.out.println("got");
-            for (TimeDB at: atList) {
+            for (Favorability at: atList) {
                 System.out.println(i);
 
-                times+=at.gettime();
-                System.out.println(at.getId());
-                System.out.println(at.gettime());
-
+                favorability+=at.getfavorability();
+                System.out.println("id:"+at.getId());
+                System.out.println("fav:"+at.getfavorability());
+                favorability=Math.max(favorability,0);
 
 
                 i++;
             }
+            TextView favorabilityText=activity.findViewById(R.id.textViewFav);
+            favorabilityText.setText(String.format(Locale.US, "%1$03d",favorability));
+            System.out.println("favorability::"+favorability);
             System.out.println(i);
+            ImageView coloboView = activity.findViewById(R.id.gifView);
+            coloboView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    if(favorability<40){
+                        loadImage(Glide.with(activity), R.raw.colob_angry, activity.findViewById(R.id.gifView));
+
+                    }else if(favorability<70){
+                        loadImage(Glide.with(activity), R.raw.colob_jump, activity.findViewById(R.id.gifView));
+                    }else{
+                        loadImage(Glide.with(activity), R.raw.colob_heart, activity.findViewById(R.id.gifView));
+                    }
+
+                }
+            });
 
 
 
