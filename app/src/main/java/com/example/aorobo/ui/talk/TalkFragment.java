@@ -47,7 +47,7 @@ public class TalkFragment extends Fragment{
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         new DataStoreAsyncTask(getActivity(),0).execute();
-        loadImage(Glide.with(getActivity()), R.raw.colob_roll, getActivity().findViewById(R.id.gifView));
+        loadImage(Glide.with(getActivity()), R.raw.colob_jump, getActivity().findViewById(R.id.gifView));
 
     }
 
