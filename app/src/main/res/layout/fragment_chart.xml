@@ -301,7 +301,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#FFFFFF"
                     android:stateListAnimator="@null"
-                    android:text="1month"
+                    android:text="7WEEK"
                     app:cornerRadius="0dp" />
             </LinearLayout>
 
@@ -318,7 +318,7 @@
                     android:layout_weight="1"
                     android:backgroundTint="#FFFFFF"
                     android:stateListAnimator="@null"
-                    android:text="1year"
+                    android:text="7MONTH"
                     app:cornerRadius="0dp" />
             </LinearLayout>
 
