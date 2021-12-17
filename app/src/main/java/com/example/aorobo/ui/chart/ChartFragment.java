@@ -171,7 +171,7 @@ public class ChartFragment extends Fragment {
                 Date d2=new Date();
                 d2.setTime(date.getTime()-1000*60*60*24*(6-i));
                 TextView tv=activity.findViewById(textlist.get(i));
-                tv.setText(new SimpleDateFormat("EEE").format(d2));
+                tv.setText(new SimpleDateFormat("MM/dd").format(d2));
 
             }
             System.out.println("DATE:"+ new SimpleDateFormat("MM.dd").format(date));
