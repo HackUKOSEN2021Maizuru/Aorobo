@@ -19,28 +19,69 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.UUID;
 
-import android.content.Intent;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothProfile;
+import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothGattService;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanSettings;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.BluetoothLeScanner;
 
-public class BluetoothFragment extends Fragment{
 
+public class BluetoothFragment extends Fragment {
+
+    private Context context;
     private FragmentBluetoothBinding binding;
     private BluetoothAdapter bluetoothadapter;
     private BluetoothManager bluetoothmanager;
     private Set<ScanResult> mResults = new HashSet<>();
-    private List<ScanResult> mBatchScanResults = new ArrayList<>();
     private BluetoothLeScanner blescanner;
+    private BluetoothDevice device;
+    private BluetoothGattCharacteristic favo;
+    private BluetoothGattCallback gattcallback = new BluetoothGattCallback() {
+        @Override
+        public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+            System.out.println("connection state change!");
+            System.out.print(status);
+            System.out.print("->");
+            System.out.println(newState);
+            if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                GattSingleton.getInstance(context).close();
+                GattSingleton.setGatt(null);
+            }
+            else if(newState == BluetoothProfile.STATE_CONNECTED){
+                GattSingleton.getInstance(context).discoverServices();
+            }
+        }
+
+        @Override
+        public void onServicesDiscovered(BluetoothGatt gatt, int status){
+            if(BluetoothGatt.GATT_SUCCESS !=status){
+                System.out.println("gatt_failed");
+            }
+            else {
+                for (BluetoothGattService service : gatt.getServices()) {
+                    System.out.println(service);
+                    System.out.println(service.getUuid());
+                    continue;
+                }
+            }
+            favo= gatt.getService(UUID.fromString(getResources().getString(R.string.SERVICE_UUID))).getCharacteristic(UUID.fromString(getResources().getString(R.string.favo_Chara_UUID)));
+            byte[] write = {60};
+            favo.setValue(write);
+            gatt.writeCharacteristic(favo);
+        }
+
+    } ;
 
     private List<ScanFilter> buildScanFilters(){
         System.out.println("filters");
@@ -59,42 +100,14 @@ public class BluetoothFragment extends Fragment{
     private ScanCallback callback =new ScanCallback(){
         @Override
         public void onScanResult(int callbackType,ScanResult result){
-            //System.out.println("success");
-            if(callbackType == ScanSettings.CALLBACK_TYPE_ALL_MATCHES){
-                mResults.add(result);
-                System.out.println(mResults);
-            }
-        }
-
-        @Override
-        public void onBatchScanResults(List<ScanResult> results){
-            mBatchScanResults.addAll(results);
-            //System.out.println("success");
-        }
-
-        @Override
-        public void onScanFailed(int ErrorCode){
-            System.out.println(ErrorCode);
-            //System.out.println("failed");
-        }
-    };
-    /*
-    public class BleScanCallback extends ScanCallback{
-        private Set<ScanResult> mResults = new HashSet<>();
-        private List<ScanResult> mBatchScanResults = new ArrayList<>();
-
-        @Override
-        public void onScanResult(int callbackType,ScanResult result){
-            if(callbackType == ScanSettings.CALLBACK_TYPE_ALL_MATCHES){
-                mResults.add(result);
-                System.out.println("success");
-            }
-        }
-
-        @Override
-        public void onBatchScanResults(List<ScanResult> results){
-            mBatchScanResults.addAll(results);
             System.out.println("success");
+            blescanner.stopScan(callback);
+            if(callbackType == ScanSettings.CALLBACK_TYPE_ALL_MATCHES){
+                device=result.getDevice();
+                connect_gatt();
+                //System.out.println(GattSingleton.getInstance(context).getServices());
+                //System.out.println("debug");
+            }
         }
 
         @Override
@@ -102,8 +115,14 @@ public class BluetoothFragment extends Fragment{
             System.out.println(ErrorCode);
             System.out.println("failed");
         }
+
+    };
+
+    private void connect_gatt(){
+        context=getActivity();
+        GattSingleton.setGatt(device.connectGatt(context,false,gattcallback,BluetoothDevice.TRANSPORT_LE));
     }
-    */
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -117,15 +136,14 @@ public class BluetoothFragment extends Fragment{
         if(bluetoothadapter == null || !bluetoothadapter.isEnabled()) {
             System.out.println("bluetooth is not enabled");
         }
-
-        blescanner = bluetoothadapter.getBluetoothLeScanner();
-        //System.out.println(blescanner.size());
-        //System.out.println(blescanner);
-        blescanner.startScan(buildScanFilters(),buildScanSettings(),callback);
-        //System.out.println(blescanner.EXTRA_CALLBACK_TYPE);
-        //System.out.println(blescanner.EXTRA_ERROR_CODE);
-        //System.out.println(blescanner.EXTRA_LIST_SCAN_RESULT);
-
+        else {
+            blescanner = bluetoothadapter.getBluetoothLeScanner();
+            //System.out.println(blescanner.size());
+            //System.out.println(blescanner);
+            if (GattSingleton.getInstance(context) == null) {
+                blescanner.startScan(buildScanFilters(), buildScanSettings(), callback);
+            }
+        }
         return root;
     }
 
@@ -133,6 +151,11 @@ public class BluetoothFragment extends Fragment{
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        //System.out.println(GattSingleton.getInstance(context).getServices());
+        //System.out.println("debug2");
+        if(blescanner!=null) {
+            blescanner.stopScan(callback);
+        }
     }
 
 }
