@@ -45,6 +45,10 @@
     <string name="fav_now">ただいまの好感度</string>
     <string name="fav_num">94</string>
     <string name="today_task">きょうの予定</string>
+    <string name="SERVICE_UUID">6BCE49E8-7169-D10C-8C9E-D564844B2F51</string>
+    <string name="favo_Chara_UUID">BFCF8B17-9F65-879B-45CA-C2D4877F4C10</string>
+    <string name="event_Chara_UUID">45E321BE-BBDD-4DE2-97BE-8A78BF50DCC1</string>
+    <string name="touch_Chara_UUID">EC604712-A2A8-0808-653D-FAF9FD074A2B</string>
     <string name="scale_h">10</string>
     <string name="scale_v">10</string>
     <string name="chart">チャート</string>
