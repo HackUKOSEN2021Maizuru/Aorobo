@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,7 +48,7 @@ public class TodayFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        //((AppCompatActivity)getActivity()).getSupportActionBar().hide();
         //loadImage(Glide.with(this), R.drawable.loading, getActivity().findViewById(R.id.gifStartView));
     }
     static void loadImage(RequestManager glide, int url, ImageView view) {
@@ -66,18 +67,28 @@ public class TodayFragment extends Fragment {
             }
         });
         */
+        Button button =getActivity().findViewById(R.id.to_home_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_today_to_home);
+            }
+        });
+        /*
         updateText = new Runnable() {
             public void run() {
                 Navigation.findNavController(view).navigate(R.id.action_today_to_home);
             }
         };
         mHandler.postDelayed(updateText, 3000);
+
+         */
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        //((AppCompatActivity)getActivity()).getSupportActionBar().show();
         binding = null;
 
     }

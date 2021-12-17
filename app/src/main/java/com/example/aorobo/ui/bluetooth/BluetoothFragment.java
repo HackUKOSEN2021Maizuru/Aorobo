@@ -110,6 +110,7 @@ public class BluetoothFragment extends Fragment {
             }
         }
 
+
         @Override
         public void onScanFailed(int ErrorCode){
             System.out.println(ErrorCode);

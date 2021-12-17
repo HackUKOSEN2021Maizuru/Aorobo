@@ -16,6 +16,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     private final List<String> iNames;
     private final List<String> iDate;
+    private final List<String> iPeriod;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -26,18 +27,21 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         //ImageView imageView;
         TextView textView;
         TextView dateView;
+        TextView periodView;
 
         ViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.schedule_name_home);
             dateView = v.findViewById(R.id.textView5);
+            periodView = v.findViewById(R.id.schedule_period);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    HomeAdapter(List<String> itemNames, List<String> itemDate) {
+    HomeAdapter(List<String> itemNames, List<String> itemDate,List<String> itemPeriod) {
         this.iNames = itemNames;
         this.iDate = itemDate;
+        this.iPeriod=itemPeriod;
     }
 
     // Create new views (invoked by the layout manager)
@@ -60,7 +64,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         // - replace the contents of the view with that element
 
         holder.textView.setText(iNames.get(position));
-        holder.dateView.setText(iDate.get(position));    }
+        holder.dateView.setText(iDate.get(position));
+        holder.periodView.setText(iPeriod.get(position)); }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override

@@ -49,4 +49,7 @@
     <string name="favo_Chara_UUID">BFCF8B17-9F65-879B-45CA-C2D4877F4C10</string>
     <string name="event_Chara_UUID">45E321BE-BBDD-4DE2-97BE-8A78BF50DCC1</string>
     <string name="touch_Chara_UUID">EC604712-A2A8-0808-653D-FAF9FD074A2B</string>
+    <string name="scale_h">10</string>
+    <string name="scale_v">10</string>
+    <string name="chart">チャート</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.annotation.NonNull;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import android.os.Handler;
@@ -40,14 +42,20 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.aorobo.R;
+import com.example.aorobo.databinding.FragmentScheduleBinding;
+import com.example.aorobo.databinding.FragmentTimeBinding;
 import com.example.aorobo.db.AppDatabase;
 import com.example.aorobo.db.AppDatabaseSingleton;
+import com.example.aorobo.db.FavorabilityDataBase;
+import com.example.aorobo.db.FavorabilityDataBaseSingleton;
 import com.example.aorobo.db.LogDao;
 import com.example.aorobo.db.Log;
 import com.example.aorobo.db.StudyTimeDataBase;
 import com.example.aorobo.db.StudyTimeDataBaseSingleton;
 import com.example.aorobo.db.TimeDatabase;
 import com.example.aorobo.db.TimeDatabaseSingleton;
+import com.example.aorobo.db.favorability.Favorability;
+import com.example.aorobo.db.favorability.FavorabilityDao;
 import com.example.aorobo.db.time.TimeDB;
 import com.example.aorobo.db.time.TimeDBDao;
 
@@ -83,7 +91,6 @@ public class TimeFragment extends Fragment {
     private final Handler handler = new Handler(Looper.getMainLooper());
 
     private TextView timerText;
-    private TextView logText;
     private TextView startText;
     private TextView log;
     private long count, delay, period;
@@ -91,6 +98,7 @@ public class TimeFragment extends Fragment {
     private WeakReference<Activity> weakActivity;
     private StudyTimeDataBase db;
     private RequestManager glide;
+    FragmentTimeBinding binding;
 
     static TimeFragment newInstance(int count){
         // Fragemnt01 インスタンス生成
@@ -109,29 +117,20 @@ public class TimeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_time,
-                container, false);
+        binding = FragmentTimeBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        return root;
     }
-
-
-    public String getTimeString(long time){
-        /*
-        long mm = time*100 / 1000 / 60;
-        long ss = time*100 / 1000 % 60;
-        long ms = (time*100 - ss * 1000 - mm * 1000 * 60)/100;
-
-         */
-
-        long mm = time*100 / 1000 / 60/60;
-        long ss = (time*100 / 1000 / 60)%60;
-        long ms = (time*100 / 1000) % 60;
-
-        return String.format(Locale.US, "%1$01d:%2$02d:%3$02d", mm, ss, ms);
-    }
-
     @Override
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        binding = null;
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
 
         db = StudyTimeDataBaseSingleton.getInstance(null);
         Bundle args = getArguments();
@@ -144,11 +143,14 @@ public class TimeFragment extends Fragment {
         timerText = getActivity().findViewById(R.id.TimeText);
         timerText.setText(zero);
         startText=getActivity().findViewById(R.id.StartButton);
-        logText = getActivity().findViewById(R.id.LogText);
-        new DataStoreAsyncTask(db, getActivity(), logText,0).execute();
+        //logText = getActivity().findViewById(R.id.LogText);
+        new DataStoreAsyncTask(db, getActivity(),0).execute();
         glide=Glide.with(this);
 
         Button startButton = getActivity().findViewById(R.id.StartButton);
+        ImageView studyimage=getActivity().findViewById(R.id.imageView4);
+        studyimage.setImageResource(R.raw.study_end);
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +201,7 @@ public class TimeFragment extends Fragment {
                 // timer がnullでない、起動しているときのみcancleする
                 if(count>0){
 
-                    DataStoreAsyncTask ds =new DataStoreAsyncTask(db, getActivity(), logText,count);
+                    DataStoreAsyncTask ds =new DataStoreAsyncTask(db, getActivity(),count);
                     ds.execute();
                     System.out.println("gettimes:");
                     //long l=
@@ -234,6 +236,133 @@ public class TimeFragment extends Fragment {
                 }
             }
         });
+    }
+
+
+    public String getTimeString(long time){
+        /*
+        long mm = time*100 / 1000 / 60;
+        long ss = time*100 / 1000 % 60;
+        long ms = (time*100 - ss * 1000 - mm * 1000 * 60)/100;
+
+         */
+
+        long mm = time*100 / 1000 / 60/60;
+        long ss = (time*100 / 1000 / 60)%60;
+        long ms = (time*100 / 1000) % 60;
+
+        return String.format(Locale.US, "%1$01d:%2$02d:%3$02d", mm, ss, ms);
+    }
+
+    @SuppressLint("ResourceType")
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        /*
+        db = StudyTimeDataBaseSingleton.getInstance(null);
+        Bundle args = getArguments();
+
+        delay = 0;
+        period = 100;
+        // "00:00.0"
+        zero = getString(R.string.zero);
+        count=0;
+        timerText = getActivity().findViewById(R.id.TimeText);
+        timerText.setText(zero);
+        startText=getActivity().findViewById(R.id.StartButton);
+        //logText = getActivity().findViewById(R.id.LogText);
+        new DataStoreAsyncTask(db, getActivity(),0).execute();
+        glide=Glide.with(this);
+
+        Button startButton = getActivity().findViewById(R.id.StartButton);
+        ImageView studyimage=getActivity().findViewById(R.id.imageView4);
+        studyimage.setImageResource(R.raw.study_end);
+
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // タイマーが走っている最中にボタンをタップされたケース
+                if(null != timer){
+                    timer.cancel();
+                    timer = null;
+                    startButton.setText("再開");
+
+                }
+                else if(count!=0){
+                    timer = new Timer();
+
+                    // TimerTask インスタンスを生成
+                    timerTask = new TimeFragment.CountUpTimerTask();
+
+                    timer.schedule(timerTask, delay, period);
+                    startButton.setText("一時停止");
+                }
+                else{
+                    // Timer インスタンスを生成
+                    timer = new Timer();
+
+                    // TimerTask インスタンスを生成
+                    timerTask = new TimeFragment.CountUpTimerTask();
+
+                    // スケジュールを設定 100msec
+                    // public void schedule (TimerTask task, long delay, long period)
+                    timer.schedule(timerTask, delay, period);
+
+                    // カウンター
+                    count = 0;
+                    timerText.setText(zero);
+
+                    startButton.setText("一時停止");
+                }
+
+
+
+            }
+        });
+
+        // タイマー終了
+        Button stopButton = getActivity().findViewById(R.id.StopButton);
+        stopButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // timer がnullでない、起動しているときのみcancleする
+                if(count>0){
+
+                    DataStoreAsyncTask ds =new DataStoreAsyncTask(db, getActivity(),count);
+                    ds.execute();
+                    System.out.println("gettimes:");
+                    //long l=
+                    //logText.setText(getTimeString(ds.getTimes()));
+                    // Cancel
+                    if(timer!=null){
+                        timer.cancel();
+                        timer = null;
+                    }
+
+                    timerText.setText(zero);
+                    count = 0;
+                    startButton.setText("計測開始");
+
+                    glide.load(R.raw.study_end)
+                            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+
+                            .into(new DrawableImageViewTarget(getActivity().findViewById(R.id.imageView4)) {
+                                @Override
+                                public void onResourceReady(Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                    if (resource instanceof GifDrawable) {
+                                        ((GifDrawable) resource).setLoopCount(1);
+                                    }
+                                    super.onResourceReady(resource, transition);
+                                }
+                            });
+
+
+
+
+
+                }
+            }
+        });*/
 
 
 
@@ -271,18 +400,20 @@ public class TimeFragment extends Fragment {
     private static class DataStoreAsyncTask extends AsyncTask<Void, Void, Integer> {
         private WeakReference<Activity> weakActivity;
         private StudyTimeDataBase db;
-        private TextView textView;
+        //private TextView textView;
         private StringBuilder sb;
         //String s;
         long s;
         long times;
         long i;
+        private FavorabilityDataBase fdb;
 
-        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity, TextView textView,long s) {
+        public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity,long s) {
             this.db = db;
             weakActivity = new WeakReference<>(activity);
-            this.textView = textView;
+            //this.textView = textView;
             this.s=s;
+            fdb = FavorabilityDataBaseSingleton.getInstance(null);
 
 
         }
@@ -290,6 +421,7 @@ public class TimeFragment extends Fragment {
         @Override
         protected Integer doInBackground(Void... params) {
             TimeDBDao timeDBDao = db.TimeDBDao();
+            FavorabilityDao favorabilityDao=fdb.FavorabilityDao();
             //timeDBDao.nukeTable();
             Date date =new Date();
             System.out.println("date");
@@ -299,7 +431,25 @@ public class TimeFragment extends Fragment {
             if(s>0){
 
                 timeDBDao.insert(new TimeDB(s,date));
+                long min=s/10000/60;
+                Random rand = new Random();
+                long fav=0;
+                if(min>=20){
+                    fav=min/6+ rand.nextInt(5)-2;
+                }else{
+                    int f=rand.nextInt(5);
+                    if(f==0){
+                        fav=rand.nextInt(6)-10;
+                    }else{
+                        fav=min/6+ rand.nextInt(5)-2;
+                    }
+                }
+                favorabilityDao.insert(new Favorability(fav,date));
+
             }
+
+
+
             System.out.println("今回の勉強時間");
             System.out.println(s);
             sb = new StringBuilder();
@@ -342,7 +492,7 @@ public class TimeFragment extends Fragment {
             ;
 
 
-            textView.setText(String.format(Locale.US, "%1$02d:%2$02d.%3$01d", mm, ss, ms));
+            //textView.setText(String.format(Locale.US, "%1$02d:%2$02d.%3$01d", mm, ss, ms));
 
         }
         public long getTimes(){

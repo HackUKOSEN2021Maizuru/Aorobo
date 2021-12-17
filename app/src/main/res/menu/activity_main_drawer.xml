@@ -23,9 +23,9 @@
             android:icon="@drawable/i_chat"
             android:title="@string/menu_talk" />
         <item
-            android:id="@+id/nav_first_title"
+            android:id="@+id/nav_chart"
             android:icon="@drawable/colobo_studygraph"
-            android:title="@string/title" />
+            android:title="@string/chart" />
         <item
             android:id="@+id/nav_bluetooth"
             android:icon="@drawable/colobo_studygraph"
