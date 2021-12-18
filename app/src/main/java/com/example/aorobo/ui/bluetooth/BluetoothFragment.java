@@ -1,9 +1,12 @@
 package com.example.aorobo.ui.bluetooth;
 
+import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,11 +15,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.example.aorobo.R;
 import com.example.aorobo.databinding.FragmentBluetoothBinding;
+import com.example.aorobo.db.FavorabilityDataBaseSingleton;
+import com.example.aorobo.db.StudyTimeDataBase;
+import com.example.aorobo.db.favorability.Favorability;
+import com.example.aorobo.db.favorability.FavorabilityDao;
 
+import java.lang.ref.WeakReference;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.UUID;
@@ -40,6 +51,10 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.BluetoothLeScanner;
 
+import com.example.aorobo.db.FavorabilityDataBase;
+import com.example.aorobo.db.FavorabilityDataBaseSingleton;
+import com.example.aorobo.ui.talk.TalkFragment;
+
 
 public class BluetoothFragment extends Fragment {
 
@@ -53,7 +68,14 @@ public class BluetoothFragment extends Fragment {
     private BluetoothGattCharacteristic favo;
     private Button scanButton;
     private TextView statustxt;
+    private DataStoreAsyncTask AsyncTask;
 
+    private void Charawrite(int service_uuid,int chara_uuid,int value){
+        byte[] write={(byte)value};
+        BluetoothGattCharacteristic Chara=GattSingleton.getInstance(context).getService(UUID.fromString(getResources().getString(service_uuid))).getCharacteristic(UUID.fromString(getResources().getString(chara_uuid)));
+        Chara.setValue(write);
+        GattSingleton.getInstance(context).writeCharacteristic(Chara);
+    }
     private BluetoothGattCallback gattcallback = new BluetoothGattCallback() {
         @Override
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
@@ -80,6 +102,7 @@ public class BluetoothFragment extends Fragment {
                     System.out.println(service.getUuid());
                     continue;
                 }
+
             }
             /*
             favo= gatt.getService(UUID.fromString(getResources().getString(R.string.SERVICE_UUID))).getCharacteristic(UUID.fromString(getResources().getString(R.string.favo_Chara_UUID)));
@@ -128,6 +151,7 @@ public class BluetoothFragment extends Fragment {
     private void connect_gatt(){
             context = getActivity();
             GattSingleton.setGatt(device.connectGatt(context, false, gattcallback, BluetoothDevice.TRANSPORT_LE));
+            Charawrite(R.string.SERVICE_UUID,R.string.favo_Chara_UUID,(int)AsyncTask.favorability);
             statustxt.setText("ころボに接続済みです！");
             scanButton.setText("ころボから切断");
     }
@@ -142,6 +166,8 @@ public class BluetoothFragment extends Fragment {
 
         binding = FragmentBluetoothBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        AsyncTask= new DataStoreAsyncTask();
+        AsyncTask.execute();
         return root;
     }
 
@@ -205,5 +231,32 @@ public class BluetoothFragment extends Fragment {
 
         binding = null;
     }
+    private static class DataStoreAsyncTask extends AsyncTask<Void, Void, Integer> {
+        long s;
+        long i;
+        long favorability=50;
+        private FavorabilityDataBase fdb;
 
+        @Override
+        protected Integer doInBackground(Void... params) {
+            System.out.println("doInBackground");
+            fdb = FavorabilityDataBaseSingleton.getInstance(null);
+            FavorabilityDao favorabilityDao = fdb.FavorabilityDao();
+            i = 0;
+            System.out.println("get");
+            List<Favorability> atList = favorabilityDao.getAll();
+            System.out.println("got");
+            for (Favorability at : atList) {
+                System.out.println(i);
+                favorability += at.getfavorability();
+                favorability = Math.max(favorability, 0);
+                favorability = Math.min(favorability,100);
+                i++;
+            }
+            System.out.print("favorability:");
+            System.out.println(favorability);
+            return 0;
+        }
+    }
 }
+
