@@ -145,11 +145,12 @@ public class ScheduleFragment extends Fragment{
             //timeDBDao.nukeTable();
 
             List<ScheduleDB> sList = scheduleDBDao.getAll();
-            sList.sort(Comparator.comparing(ScheduleDB::getEnd));
+            sList.sort(Comparator.comparing(ScheduleDB::getStart));
             System.out.println("got");
             iName.clear();
             iDate.clear();
             ids.clear();
+            iPeriod.clear();
             Date date=new Date();
 
             List<ScheduleDB> sList2=new ArrayList<ScheduleDB>();
@@ -204,7 +205,7 @@ public class ScheduleFragment extends Fragment{
                 //iPeriod.add(String.format(Locale.US, "%1$04d.%2$02d.%3$02d~%4$04d.%5$02d.%6$02d", at.getStart().getYear(),at.getStart().getMonth(),at.getStart().getDay(),at.getEnd().getYear(),at.getEnd().getMonth(),at.getEnd().getDay()));
 
                 iPeriod.add(st+"~"+en);
-                long t=(at.getStart().getTime()-date.getTime())/1000/60/60/24;
+                long t=(at.getStart().getTime()-date.getTime())/1000/60/60/24+1;
                 iName.add(at.getName());
                 ids.add(at.getId());
                 if(at.getStart().getTime()<date.getTime()){
