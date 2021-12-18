@@ -152,6 +152,8 @@ public class BluetoothFragment extends Fragment {
             context = getActivity();
             GattSingleton.setGatt(device.connectGatt(context, false, gattcallback, BluetoothDevice.TRANSPORT_LE));
             Charawrite(R.string.SERVICE_UUID,R.string.favo_Chara_UUID,(int)AsyncTask.favorability);
+            System.out.print("(write)favorability:");
+            System.out.println(AsyncTask.favorability);
             statustxt.setText("ころボに接続済みです！");
             scanButton.setText("ころボから切断");
     }

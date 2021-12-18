@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.annotation.NonNull;
 
 import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCharacteristic;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -58,6 +60,7 @@ import com.example.aorobo.db.favorability.Favorability;
 import com.example.aorobo.db.favorability.FavorabilityDao;
 import com.example.aorobo.db.time.TimeDB;
 import com.example.aorobo.db.time.TimeDBDao;
+import com.example.aorobo.ui.bluetooth.GattSingleton;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -79,6 +82,7 @@ import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+import java.util.UUID;
 //import com.example.koroboandroidapp.ui.dashboard.DashboardViewModel;
 import android.widget.ImageButton;
 
@@ -391,8 +395,6 @@ public class TimeFragment extends Fragment {
                     count++;
                     // 桁数を合わせるために02d(2桁)を設定
                     timerText.setText(getTimeString(count));
-
-
                 }
             });
         }
@@ -407,6 +409,9 @@ public class TimeFragment extends Fragment {
         long times;
         long i;
         private FavorabilityDataBase fdb;
+        long favorability;
+        private String service_uuid="6BCE49E8-7169-D10C-8C9E-D564844B2F51";
+        private String favo_uuid="BFCF8B17-9F65-879B-45CA-C2D4877F4C10";
 
         public DataStoreAsyncTask(StudyTimeDataBase db, Activity activity,long s) {
             this.db = db;
@@ -445,7 +450,21 @@ public class TimeFragment extends Fragment {
                     }
                 }
                 favorabilityDao.insert(new Favorability(fav,date));
-
+                //好感度計算&送信(bluetooth接続時)
+                BluetoothGatt gatt =GattSingleton.getInstance(null);
+                System.out.println("got gatt");
+                if(gatt!=null) {
+                    System.out.println("BLE connected. write:favorability");
+                    List<Favorability> atList = favorabilityDao.getAll();
+                    favorability = 50;
+                    for (Favorability at : atList) {
+                        favorability += at.getfavorability();
+                        favorability = Math.max(favorability, 0);
+                    }
+                    WriteFavo(gatt,(int) favorability);
+                    System.out.print("(write)favorability:");
+                    System.out.println(favorability);
+                }
             }
 
 
@@ -500,6 +519,13 @@ public class TimeFragment extends Fragment {
             System.out.println(times);
             return times;
         }
+        private void WriteFavo(BluetoothGatt gatt,int value){
+            byte[] write={(byte)value};
+            BluetoothGattCharacteristic Chara= GattSingleton.getInstance(null).getService(UUID.fromString(service_uuid)).getCharacteristic(UUID.fromString(favo_uuid));
+            Chara.setValue(write);
+            GattSingleton.getInstance(null).writeCharacteristic(Chara);
+        }
+
     }
 
 

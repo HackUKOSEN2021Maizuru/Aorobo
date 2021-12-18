@@ -1,5 +1,7 @@
 package com.example.aorobo.ui.talk;
 import android.app.Activity;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,11 +22,13 @@ import com.example.aorobo.db.FavorabilityDataBase;
 import com.example.aorobo.db.FavorabilityDataBaseSingleton;
 import com.example.aorobo.db.favorability.Favorability;
 import com.example.aorobo.db.favorability.FavorabilityDao;
+import com.example.aorobo.ui.bluetooth.GattSingleton;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 public class TalkFragment extends Fragment{
 
@@ -52,7 +56,15 @@ public class TalkFragment extends Fragment{
         coloboView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Bluetoothの処理
-
+                BluetoothGatt gatt=GattSingleton.getInstance(null);
+                System.out.println("got gatt");
+                if(gatt!=null){
+                    System.out.println("BLE connected.Send:touch");
+                    Charawrite(gatt,R.string.SERVICE_UUID,R.string.touch_Chara_UUID,1);
+                    System.out.println("(write)touch:1");
+                    Charawrite(gatt,R.string.SERVICE_UUID,R.string.touch_Chara_UUID,0);
+                    System.out.println("(write)touch:0");
+                }
             }
         });
 
@@ -105,5 +117,11 @@ public class TalkFragment extends Fragment{
 
             return 0;
         }
+    }
+    private void Charawrite(BluetoothGatt gatt, int service_uuid, int chara_uuid, int value){
+        byte[] write={(byte)value};
+        BluetoothGattCharacteristic Chara=GattSingleton.getInstance(null).getService(UUID.fromString(getResources().getString(service_uuid))).getCharacteristic(UUID.fromString(getResources().getString(chara_uuid)));
+        Chara.setValue(write);
+        gatt.writeCharacteristic(Chara);
     }
 }
