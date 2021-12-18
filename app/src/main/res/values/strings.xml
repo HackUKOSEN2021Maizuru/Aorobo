@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KoroboAndroidApp</string>
+    <string name="app_name">aorobo</string>
     <string name="appname">Aorobo</string>
     <string name="title_home">ホーム</string>
     <string name="title_dashboard">チャット</string>
@@ -16,7 +16,7 @@
     <string name="menu_home">メイン</string>
     <string name="menu_gallery">勉強</string>
     <string name="menu_slideshow">カレンダー</string>
-    <string name="menu_talk">トーク</string>
+    <string name="menu_talk">ころボ</string>
     <string name="menu_schedule">予定</string>
     <string name="menu_make_schedule">予定追加</string>
     <string name="menu_bluetooth_status">接続状況</string>

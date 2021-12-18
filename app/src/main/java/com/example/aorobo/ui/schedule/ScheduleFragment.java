@@ -145,10 +145,11 @@ public class ScheduleFragment extends Fragment{
             //timeDBDao.nukeTable();
 
             List<ScheduleDB> sList = scheduleDBDao.getAll();
-            sList.sort(Comparator.comparing(ScheduleDB::getEnd));
+            sList.sort(Comparator.comparing(ScheduleDB::getStart));
             System.out.println("got");
             iName.clear();
             iDate.clear();
+            iPeriod.clear();
             ids.clear();
             Date date=new Date();
 
