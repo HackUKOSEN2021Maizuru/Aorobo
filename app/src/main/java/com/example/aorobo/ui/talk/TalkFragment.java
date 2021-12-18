@@ -48,6 +48,13 @@ public class TalkFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
         new DataStoreAsyncTask(getActivity(),0).execute();
         loadImage(Glide.with(getActivity()), R.raw.colob_roll, getActivity().findViewById(R.id.gifView));
+        ImageView coloboView = getActivity().findViewById(R.id.gifView);
+        coloboView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //Bluetoothの処理
+
+            }
+        });
 
     }
 
@@ -95,19 +102,7 @@ public class TalkFragment extends Fragment{
             }
             TextView favorabilityText=activity.findViewById(R.id.textViewFav);
             favorabilityText.setText(String.format(Locale.US, "%1$03d",favorability));
-            ImageView coloboView = activity.findViewById(R.id.gifView);
-            coloboView.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Runnable runnable = new Runnable() {
-                        public void run() {
-                            loadImage(Glide.with(activity), R.raw.colob_roll, activity.findViewById(R.id.gifView));
-                        }
-                    };
-                    loadImage(Glide.with(activity), R.raw.colob_jump, activity.findViewById(R.id.gifView));
-                    mHandler.postDelayed(runnable, 3000);
 
-                }
-            });
             return 0;
         }
     }
