@@ -62,8 +62,6 @@ public class TalkFragment extends Fragment{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Glide.with(getActivity()).onDestroy();
-        Glide.with(getActivity()).clear(getView());
         binding = null;
 
     }
