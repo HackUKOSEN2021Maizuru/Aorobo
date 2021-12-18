@@ -128,7 +128,14 @@ public class TimeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
+        //BLE -> 0
+        BluetoothGatt gatt = GattSingleton.getInstance(null);
+        System.out.println("got gatt");
+        if(gatt!=null){
+            System.out.println("BLE connected. Send:event");
+            Charawrite(gatt,R.string.SERVICE_UUID,R.string.event_Chara_UUID,0);
+            System.out.println("(write)event:0");
+        }
         binding = null;
 
     }
@@ -190,6 +197,15 @@ public class TimeFragment extends Fragment {
                     timerText.setText(zero);
 
                     startButton.setText("一時停止");
+
+                    //BLE event -> 2
+                    BluetoothGatt gatt = GattSingleton.getInstance(null);
+                    System.out.println("got gatt");
+                    if(gatt!=null){
+                        System.out.println("BLE connected. Send:event");
+                        Charawrite(gatt,R.string.SERVICE_UUID,R.string.event_Chara_UUID,2);
+                        System.out.println("(write)event:2");
+                    }
                 }
 
 
@@ -233,10 +249,14 @@ public class TimeFragment extends Fragment {
                                 }
                             });
 
-
-
-
-
+                    // BLE event -> 0
+                    BluetoothGatt gatt = GattSingleton.getInstance(null);
+                    System.out.println("got gatt");
+                    if(gatt!=null){
+                        System.out.println("BLE connected. Send:event");
+                        Charawrite(gatt,R.string.SERVICE_UUID,R.string.event_Chara_UUID,0);
+                        System.out.println("(write)event:0");
+                    }
                 }
             }
         });
@@ -526,6 +546,12 @@ public class TimeFragment extends Fragment {
             GattSingleton.getInstance(null).writeCharacteristic(Chara);
         }
 
+    }
+    private void Charawrite(BluetoothGatt gatt, int service_uuid, int chara_uuid, int value){
+        byte[] write={(byte)value};
+        BluetoothGattCharacteristic Chara=GattSingleton.getInstance(null).getService(UUID.fromString(getResources().getString(service_uuid))).getCharacteristic(UUID.fromString(getResources().getString(chara_uuid)));
+        Chara.setValue(write);
+        gatt.writeCharacteristic(Chara);
     }
 
 
