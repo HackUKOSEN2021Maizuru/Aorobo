@@ -97,6 +97,9 @@ public class BluetoothFragment extends Fragment {
                 System.out.println("gatt_failed");
             }
             else {
+                Charawrite(R.string.SERVICE_UUID,R.string.favo_Chara_UUID,(int)AsyncTask.favorability);
+                System.out.print("(write)favorability:");
+                System.out.println(AsyncTask.favorability);
                 for (BluetoothGattService service : gatt.getServices()) {
                     System.out.println(service);
                     System.out.println(service.getUuid());
@@ -151,9 +154,6 @@ public class BluetoothFragment extends Fragment {
     private void connect_gatt(){
             context = getActivity();
             GattSingleton.setGatt(device.connectGatt(context, false, gattcallback, BluetoothDevice.TRANSPORT_LE));
-            Charawrite(R.string.SERVICE_UUID,R.string.favo_Chara_UUID,(int)AsyncTask.favorability);
-            System.out.print("(write)favorability:");
-            System.out.println(AsyncTask.favorability);
             statustxt.setText("ころボに接続済みです！");
             scanButton.setText("ころボから切断");
     }

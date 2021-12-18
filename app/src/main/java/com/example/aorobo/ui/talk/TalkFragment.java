@@ -62,8 +62,6 @@ public class TalkFragment extends Fragment{
                     System.out.println("BLE connected.Send:touch");
                     Charawrite(gatt,R.string.SERVICE_UUID,R.string.touch_Chara_UUID,1);
                     System.out.println("(write)touch:1");
-                    Charawrite(gatt,R.string.SERVICE_UUID,R.string.touch_Chara_UUID,0);
-                    System.out.println("(write)touch:0");
                 }
             }
         });
